@@ -1,7 +1,7 @@
 import { db } from '@/lib/db'
 import { notFound } from 'next/navigation'
-import React from 'react'
-import PageModal from './pageModal'
+import React,{FC} from 'react'
+import PageModal from '@/components/PageModal'
 
 interface Props{
     params:{
@@ -9,7 +9,7 @@ interface Props{
     }
 }
 
-const Page = async ({params}:Props) => {
+const page:FC<Props> = async ({params}) => {
 
   const post = await db.post.findFirst({
     where: {
@@ -29,5 +29,5 @@ const Page = async ({params}:Props) => {
   )
 }
 
-export default Page
+export default page
 

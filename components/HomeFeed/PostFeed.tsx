@@ -23,7 +23,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts }) => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     ['infinite-query'],
     async ({ pageParam = 1 }) => {
-      const query = `/api/post?limit=${1}&page=${pageParam}`
+      const query = `/api/post?limit=${4}&page=${pageParam}`
 
       const { data } = await axios.get(query)
       return data as ExtendedPost[]

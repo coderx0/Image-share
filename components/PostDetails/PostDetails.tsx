@@ -59,7 +59,7 @@ const PostDetails = ({
             </div>
         </div>
         <div className='flex justify-center mt-4'>
-            <div className='max-w-[600px]'>
+            <div className='max-w-[500px]'>
                 <img src={imageUrl} className='object-contain'/>
             </div>
         </div>

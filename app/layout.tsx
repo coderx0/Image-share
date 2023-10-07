@@ -16,12 +16,10 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-  authModal,
-  photoModal
+  modal
 }: {
   children: React.ReactNode,
-  authModal: React.ReactNode,
-  photoModal: React.ReactNode
+  modal: React.ReactNode
 }) {
 
   return (
@@ -36,10 +34,9 @@ export default function RootLayout({
       <body className='min-h-screen antialiased'>
         <Providers>
           <Drawer>
-            {authModal}
             {children}
           </Drawer>
-            {photoModal}
+            {modal}
           <Toaster richColors/>
         </Providers>
       </body>
