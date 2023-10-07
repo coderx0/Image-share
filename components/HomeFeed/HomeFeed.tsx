@@ -10,7 +10,7 @@ const HomeFeed = async() => {
         include: {
           author: true,
         },
-        take: 1,
+        take: 4,
       })
 
   return (

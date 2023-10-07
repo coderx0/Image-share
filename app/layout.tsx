@@ -17,9 +17,11 @@ export const metadata = {
 export default function RootLayout({
   children,
   authModal,
+  photoModal
 }: {
   children: React.ReactNode,
   authModal: React.ReactNode,
+  photoModal: React.ReactNode
 }) {
 
   return (
@@ -37,6 +39,7 @@ export default function RootLayout({
             {authModal}
             {children}
           </Drawer>
+            {photoModal}
           <Toaster richColors/>
         </Providers>
       </body>

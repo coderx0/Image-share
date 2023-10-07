@@ -54,14 +54,14 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts }) => {
         if(index === posts.length - 1){
           return (
             <div key={post.id} ref={ref}>
-              <Post title={post.title} imageUrl={post.imageUrl}/>
+              <Post id={post.id} title={post.title} imageUrl={post.imageUrl}/>
             </div>
           )
         }
         else{
           return (
             <div key={post.id}>
-              <Post title={post.title} imageUrl={post.imageUrl}/>
+              <Post id={post.id} title={post.title} imageUrl={post.imageUrl}/>
             </div>
           )
         }

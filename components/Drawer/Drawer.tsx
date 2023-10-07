@@ -14,7 +14,7 @@ const Drawer = async({children}: {children: React.ReactNode}) => {
   <div className="drawer-content flex flex-col">
     {/* Navbar */}
     
-    <div className="w-full navbar bg-base-300 fixed">
+    <div className="w-full navbar bg-base-300 fixed z-20">
       <div className="flex-1 px-2 mx-2">
         <Link href='/' className=' font-semibold text-xl'>
             ImageDash
@@ -45,7 +45,7 @@ const Drawer = async({children}: {children: React.ReactNode}) => {
       </div> 
     </div>
     {/* Page content here */}
-    <main className='mt-16'>
+    <main className='mt-16 z-10'>
         {children}
     </main>
   </div> 
