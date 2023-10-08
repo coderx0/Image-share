@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import PostDetails from '@/components/PostDetails/PostDetails'
-import { User } from '@prisma/client'
+import { Like, User } from '@prisma/client'
 import { useClickOutside } from '@mantine/hooks'
 import { useRouter } from 'next/navigation'
 
@@ -11,7 +11,7 @@ interface Props{
         imageUrl: string,
         id: string,
         author: User,
-        likes: number
+        likes: Like[]
     }
 }
 
@@ -29,6 +29,7 @@ const PageModal = ({post}: Props) => {
     className='fixed z-40 backdrop-blur-md top-0 bottom-0 left-0 right-0 w-full flex justify-center items-center'>
     <div className='w-[90%] bg-blue-300 p-6' ref={ref}>
       <PostDetails 
+        postId={post.id}
         title={post.title}
         imageId={post.id}
         imageUrl={post.imageUrl}

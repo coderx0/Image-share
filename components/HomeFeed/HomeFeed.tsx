@@ -10,12 +10,12 @@ const HomeFeed = async() => {
         include: {
           author: true,
         },
-        take: 4,
+        // take: 4,
       })
 
   return (
     <>
-    <PostFeed initialPosts={posts}/>
+    <PostFeed initialPosts={posts} endpoint='/post'/>
     </>
   )
 }

@@ -10,8 +10,8 @@ import { Toaster } from 'sonner';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Breadit',
-  description: 'A Reddit clone built with Next.js and TypeScript.',
+  title: 'ImageDash',
+  description: 'A simple Image sharing App',
 }
 
 export default function RootLayout({

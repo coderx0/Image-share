@@ -16,7 +16,8 @@ const page:FC<Props> = async ({params}) => {
       id: params.photoId
     },
     include: {
-      author: true
+      author: true,
+      likes: true
     }
   });
 

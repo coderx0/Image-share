@@ -50,7 +50,7 @@ model User {
   emailVerified DateTime?
   // createdCommunities Community[]    @relation("CreatedBy")
   // subscriptions      Subscription[]
-  // votes              Vote[]
+  likes         Like[]
 
   username String? @unique
 
@@ -99,7 +99,7 @@ model Post {
   // community   Community @relation(fields: [communityId], references: [id])
   // communityId String?
   // comments    Comment[]
-  likes     Int      @default(0)
+  likes     Like[]
   // @@index([communityId])
 
   @@index([authorId])
@@ -126,17 +126,16 @@ model Post {
 //   @@index([replyToId])
 // }
 
-// model Vote {
-//   user   User     @relation(fields: [userId], references: [id])
-//   userId String
-//   post   Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-//   postId String
-//   type   VoteType
+model Like {
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
 
-//   @@id([userId, postId])
-//   @@index([userId])
-//   @@index([postId])
-// }
+  @@id([userId, postId])
+  @@index([userId])
+  @@index([postId])
+}
 
 // model CommentVote {
 //   user      User     @relation(fields: [userId], references: [id])

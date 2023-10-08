@@ -16,7 +16,8 @@ const Page = async ({params}:Props) => {
       id: params.photoId
     },
     include: {
-      author: true
+      author: true,
+      likes: true
     }
   });
 
@@ -27,6 +28,7 @@ const Page = async ({params}:Props) => {
   return (
     <div>
       <PostDetails 
+        postId={post.id}
         title={post.title}
         imageId={post.id}
         imageUrl={post.imageUrl}

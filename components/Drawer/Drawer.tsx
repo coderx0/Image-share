@@ -4,6 +4,7 @@ import React from 'react'
 import UserButton from "../userButton"
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import Searchbar from './Searchbar'
 
 const Drawer = async({children}: {children: React.ReactNode}) => {
   const session = await getServerSession(authOptions)
@@ -14,12 +15,13 @@ const Drawer = async({children}: {children: React.ReactNode}) => {
   <div className="drawer-content flex flex-col">
     {/* Navbar */}
     
-    <div className="w-full navbar bg-base-300 fixed z-20">
-      <div className="flex-1 px-2 mx-2">
+    <div className="flex justify-between w-full navbar bg-base-300 fixed z-20">
+      <div className="px-2 mx-2">
         <Link href='/' className=' font-semibold text-xl'>
             ImageDash
         </Link>
       </div>
+      <Searchbar/>
       <div className="flex-none hidden lg:block">
         <ul className="menu menu-horizontal items-center gap-4 p-0">
           <li>
