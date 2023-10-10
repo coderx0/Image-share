@@ -75,8 +75,7 @@ const ImageUploader = () => {
           description: 'Your post has been published.',
         })
 
-        router.push(`/photo/${data.postId}`)
-
+        location.assign(`${process.env.NEXT_PUBLIC_CLIENT_URL}/photo/${data.postId}`)
         return;
       },
     })
