@@ -13,20 +13,20 @@ const Post = ({title, imageUrl,id}: Props) => {
   return (
     <Link href={`/photo/${id}`}>
       <div className='group relative bg-red-100'>
-      <div className='absolute top-0 z-20 flex w-full justify-end p-2'>
+      <div className='absolute top-0 z-20 left-0 flex w-full justify-end p-2'>
         <Button isIconOnly className=''>
           <Heart/>
         </Button>
       </div>
-        <div className='max-w-[400px]'>
-            {/* <img src={imageUrl} className='object-contain'/> */}
-            <Image
-              // width={240}
-              alt={title}
-              src={imageUrl}
-              className='z-1'
-            />
-        </div>
+      <div className='max-w-[400px]'>
+          {/* <img src={imageUrl} className='object-contain'/> */}
+          <Image
+            // width={240}
+            alt={title}
+            src={imageUrl}
+            className='z-1'
+          />
+      </div>
     </div>
     </Link>
   )

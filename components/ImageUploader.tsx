@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef, useState } from 'react'
-import { UploadCloud } from 'lucide-react'
+import { Delete, Trash2, UploadCloud } from 'lucide-react'
 import { uploadFiles } from '@/lib/uploadthing';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -10,13 +10,14 @@ import { PostCreationRequest, PostValidator } from '@/lib/validators/post'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 
 type FormData = z.infer<typeof PostValidator>
 
 
 const ImageUploader = () => {
-  const { register, handleSubmit, formState: { errors },setValue} = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors },setValue, reset} = useForm<FormData>({
     resolver: zodResolver(PostValidator),
     defaultValues: {
       title: '',
@@ -26,11 +27,19 @@ const ImageUploader = () => {
 
     const [selectedImageURL, setSelectedImageURL] = useState<string | null>(null);
     const [imageFile, setImageFile] = useState<File | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const router = useRouter();
 
     const uploadImage = async(e:React.ChangeEvent<HTMLInputElement>)=>{
         const file = e.target.files?.[0];
-        // console.log(file);
-        if (file && file.type.startsWith('image/')) {
+
+        if(file){
+          if((file.size/(1024*1024))>2){
+            toast.error('Please select image file with size less than 2MB');
+            return;
+          }
+          if (file.type.startsWith('image/')) {
             const url = URL.createObjectURL(file)
             setSelectedImageURL(url);
             setImageFile(file);
@@ -39,7 +48,8 @@ const ImageUploader = () => {
             // Clear the selected image if it's not an image
             setSelectedImageURL(null);
             setImageFile(null)
-            alert('Please select a valid image file (e.g., JPG, JPEG, PNG, GIF).');
+            toast.error('Please select a valid image file (e.g., JPG, JPEG, PNG, GIF).');
+          }
         }
     }
 
@@ -49,7 +59,7 @@ const ImageUploader = () => {
         imageUrl
       }: PostCreationRequest) => {
         const payload: PostCreationRequest = { title, imageUrl }
-        const { data } = await axios.post('/api/post/create', payload)
+        const  {data}  = await axios.post('/api/post/create', payload)
         return data
       },
       onError: () => {
@@ -58,15 +68,16 @@ const ImageUploader = () => {
           duration: 4000
         })
       },
-      onSuccess: () => {
-        // const newPathname = pathname.split('/').slice(0, -1).join('/')
-        // router.push(newPathname)
-  
-        // router.refresh()
-  
-        return toast.success('Success',{
+      onSuccess: (data) => {
+        setIsLoading(false);
+
+        toast.success('Success',{
           description: 'Your post has been published.',
         })
+
+        router.push(`/photo/${data.postId}`)
+
+        return;
       },
     })
 
@@ -74,8 +85,8 @@ const ImageUploader = () => {
       let url = '';
 
       if(imageFile){
+          setIsLoading(true);
           const [res] = await uploadFiles({endpoint:'imageUploader',files:[imageFile]})
-          console.log({res})
           url = res.url;
       }
 
@@ -89,7 +100,7 @@ const ImageUploader = () => {
 
   return (
     <div className='flex flex-col justify-center items-center p-8 gap-4'>
-      <h1 className='text-center text-2xl font-semibold'>
+      <h1 className='text-center text-2xl font-semibold mb-4'>
         {
           !selectedImageURL ? <span>Share your photos and share memories</span>
           : <span>Add some more information about your image</span>
@@ -97,29 +108,65 @@ const ImageUploader = () => {
       </h1>
         {
           selectedImageURL ? (
-            <div className='flex'>
-              <div className='max-w-[600px] max-h-[600px]'>
-              <img src={selectedImageURL} className='object-contain' alt="Selected" style={{ maxWidth: '100%' }} />
+            <div className='flex gap-4 justify-center items-center w-full'>
+              <div className='flex bg-base-200 p-6 w-[80%] rounded-xl gap-8'>
+              <div className='w-[50%] max-h-[600px] rounded-xl'>
+              <img src={selectedImageURL} className='object-contain rounded-xl max-w-[100%] max-h-[100%]' alt="Selected"/>
               </div>
-              <div>
-              <form onSubmit={handleSubmit(onSubmit)}>
-              <input
-              {...register('imageUrl')}
-              type="text"
-              name="uploadedFile"
-              // onChange={uploadImage}
-              className="hidden"
-              />
-              <input
-                type='text'
-                placeholder='Title'
-                {...register('title')}
-              />
-              <button type='submit'>
-                Submit
-              </button>
+              <div className='w-[50%]'>
+              <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col h-full'>
+                <input
+                {...register('imageUrl')}
+                type="text"
+                name="uploadedFile"
+                // onChange={uploadImage}
+                className="hidden"
+                />
+                <div className='flex flex-col gap-2 w-full px-8 mb-6'>
+                <label>Title</label>
+                <input
+                  type='text'
+                  placeholder='enter a title'
+                  {...register('title')}
+                  className='input rounded-md w-full'
+                />
+                </div>
+                <div className='flex flex-col gap-2 w-full px-8 mb-6'>
+                <label>Description</label>
+                <input
+                  type='text'
+                  placeholder='Some additional description'
+                  // {...register('title')}
+                  className='input rounded-md w-full'
+                />
+                </div>
+                <div className='flex flex-col gap-2 w-full px-8'>
+                <label>Location</label>
+                <input
+                  type='text'
+                  placeholder='enter a location'
+                  className='input rounded-md w-full'
+                />
+                </div>
+                <div className='mt-16 flex justify-center'>
+                  <button disabled={isLoading} type='submit' className='btn btn-primary rounded-md px-8'>
+                    {
+                      isLoading ? <span className="loading loading-spinner"></span>: 'Submit'
+                    }
+                  </button>
+                </div>
               </form>
               </div>
+            </div>
+            <div className='ml-8'>
+              <button disabled={isLoading} className='btn rounded-full h-16 w-16 p-2' onClick={()=>{
+                reset();
+                setImageFile(null);
+                setSelectedImageURL(null)
+              }}>
+                <Trash2/>
+              </button>
+            </div>
             </div>
           )
           :

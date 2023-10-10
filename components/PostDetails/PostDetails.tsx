@@ -16,14 +16,13 @@ interface Props {
 const PostDetails = async({
     title, imageUrl, imageId, likes, author,postId
 }: Props) => {
-
   return (
     <div className='p-6'>
         <div className='flex'>
             <div className='flex flex-1 gap-2 items-start'>
                 <div className="bg-red-100 w-12 h-12 flex justify-center items-center rounded-full">
                     {
-                        author.image ? (<img src={imageUrl} className='rounded-full'/>):
+                        author.image ? (<img src={author.image} className='rounded-full'/>):
                         (
                             <UserIcon className=''/>
                         )

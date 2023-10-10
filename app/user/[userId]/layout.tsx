@@ -1,4 +1,6 @@
+import FollowUser from '@/components/FollowUser';
 import { db } from '@/lib/db';
+import { user } from '@nextui-org/react';
 import { User } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
@@ -11,7 +13,6 @@ interface Props{
     }
 }
 
-
 export const dynamic = 'force-dynamic'
 export const fetchCache = 'force-no-store'
 
@@ -21,6 +22,10 @@ const layout = async ({children,params}:Props) => {
     const userDetails = await db.user.findFirst({
         where:{
             id: params.userId
+        },
+        include:{
+            followers: true,
+            following: true
         }
     })
 
@@ -64,9 +69,7 @@ const layout = async ({children,params}:Props) => {
                 )
                 :
                 (
-                    <button className='btn btn-success rounded-md'>
-                        Follow
-                    </button>
+                    <FollowUser followers={userDetails.followers} userId={userDetails.id}/>
                 )
             }
             <div className='flex gap-4 items-center'>

@@ -59,6 +59,9 @@ dependencies:
   react-hook-form:
     specifier: ^7.47.0
     version: 7.47.0(react@18.2.0)
+  react-masonry-css:
+    specifier: ^1.0.16
+    version: 1.0.16(react@18.2.0)
   server-only:
     specifier: ^0.0.1
     version: 0.0.1
@@ -3192,6 +3195,14 @@ packages:
     engines: {node: '>=12.22.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18
+    dependencies:
+      react: 18.2.0
+    dev: false
+
+  /react-masonry-css@1.0.16(react@18.2.0):
+    resolution: {integrity: sha512-KSW0hR2VQmltt/qAa3eXOctQDyOu7+ZBevtKgpNDSzT7k5LA/0XntNa9z9HKCdz3QlxmJHglTZ18e4sX4V8zZQ==}
+    peerDependencies:
+      react: '>=16.0.0'
     dependencies:
       react: 18.2.0
     dev: false

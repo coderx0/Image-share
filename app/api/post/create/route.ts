@@ -1,6 +1,7 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { PostValidator } from '@/lib/validators/post'
+import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
 export async function POST(req: Request) {
@@ -15,7 +16,7 @@ export async function POST(req: Request) {
       return new Response('Unauthorized', { status: 401 })
     }
 
-    await db.post.create({
+    const newPost = await db.post.create({
       data: {
         title,
         imageUrl,
@@ -23,7 +24,7 @@ export async function POST(req: Request) {
       },
     })
 
-    return new Response('OK')
+    return NextResponse.json({postId: newPost.id})
   } catch (error) {
     if (error instanceof z.ZodError) {
       return new Response(error.message, { status: 400 })
