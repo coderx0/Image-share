@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useRef, useState } from 'react'
-import { Delete, Trash2, UploadCloud } from 'lucide-react'
+import React, { useState } from 'react'
+import { Trash2, UploadCloud } from 'lucide-react'
 import { uploadFiles } from '@/lib/uploadthing';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'

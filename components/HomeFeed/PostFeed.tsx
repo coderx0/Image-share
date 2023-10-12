@@ -14,6 +14,12 @@ interface PostFeedProps {
   endpoint: string
 }
 
+const breakpointColumnsObj = {
+  default: 3,
+  1000: 2,
+  500: 1
+};
+
 const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint }) => {
   // const lastPostRef = useRef<HTMLElement>(null)
   // const { ref, entry } = useIntersection({
@@ -56,7 +62,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint }) => {
   return (
     <>
     <Masonry
-      breakpointCols={3}
+      breakpointCols={breakpointColumnsObj}
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column">
           {
@@ -64,14 +70,14 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint }) => {
           if(index === initialPosts.length - 1){
             return (
               <div key={post.id}>
-                <Post id={post.id} title={post.title} imageUrl={post.imageUrl}/>
+                <Post id={post.id} title={post.title} imageUrl={post.imageUrl} author={post.author}/>
               </div>
             )
           }
           else{
             return (
               <div key={post.id}>
-                <Post id={post.id} title={post.title} imageUrl={post.imageUrl}/>
+                <Post id={post.id} title={post.title} imageUrl={post.imageUrl} author={post.author}/>
               </div>
             )
           }
