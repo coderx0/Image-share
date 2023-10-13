@@ -26,8 +26,8 @@ const PageModal = ({post}: Props) => {
 
   return (
     <div
-    className='fixed z-40 backdrop-blur-md top-0 bottom-0 left-0 right-0 w-full flex justify-center items-center'>
-    <div className='w-[90%] bg-base-100 p-6' ref={ref}>
+    className='fixed z-40 backdrop-brightness-50 top-0 bottom-0 left-0 right-0 w-full flex justify-center items-center'>
+    <div className='w-[90%] bg-base-100 p-6 rounded-md' ref={ref}>
       <PostDetails 
         postId={post.id}
         title={post.title}

@@ -3,6 +3,8 @@ import { PrismaAdapter } from '@auth/prisma-adapter'
 import { nanoid } from 'nanoid'
 import { NextAuthOptions, getServerSession } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
+import CredentialsProvider from "next-auth/providers/credentials"
+import { verifyPassword } from '@/utils/password'
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -17,6 +19,42 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
+    CredentialsProvider({
+      async authorize(credentials :{
+        email: string,
+        password: string,
+        casrfToken: string,
+        callbackUrl: string,
+        json: string
+      }){
+
+        if(!credentials.email){
+          return new Response('No Email Provided.',{status:401})
+        }
+
+        if(!credentials.password){
+          return new Response('No password provided.',{status:401})
+        }
+
+        const user = await db.user.findFirst({
+          where:{
+            email: credentials!.email
+          }
+        });
+
+        if(!user){
+          return new Response('User with provided email does not exists. Sign up instead.',{status:401})
+        }
+        
+        const isValidPassword = await verifyPassword({password: credentials!.password,hashedPassword:user.password});
+
+        if(!isValidPassword){
+          return new Response('Wrong password. Please try again.',{status:401})
+        }
+
+        return user;
+      }  
+    })
   ],
   callbacks: {
     async session({ token, session }) {

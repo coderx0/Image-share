@@ -56,8 +56,8 @@ const PostDetails = async({
             </div>
         </div>
         <div className='flex justify-center mt-4'>
-            <div className='max-w-[500px]'>
-                <img src={imageUrl} className='object-contain'/>
+            <div className='max-h-[550px] flex justify-center'>
+                <img src={imageUrl} className='h-full w-auto object-contain'/>
             </div>
         </div>
         <div className='flex justify-end mt-4'>

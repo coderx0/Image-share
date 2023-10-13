@@ -58,6 +58,7 @@ model User {
   accounts Account[]
   sessions Session[]
   Post     Post[]
+  password String?
 
   // Define a field for the followers of this user
   followers Follow[] @relation("Following")

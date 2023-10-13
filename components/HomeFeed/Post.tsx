@@ -13,7 +13,6 @@ interface Props {
 
 const Post = ({title, imageUrl,id,author}: Props) => {
   return (
-    <Link href={`/photo/${id}`}>
       <div className='group relative bg-red-100'>
       <div className='absolute top-0 z-20 left-0 hidden group-hover:flex gap-2 w-full justify-end p-2'>
         <button className='btn rounded-lg p-2 px-3 bg-base-100'>
@@ -36,6 +35,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
           <Download/>
         </button>
       </div>
+    <Link href={`/photo/${id}`}>
       <div className='max-w-[500px]'>
           {/* <img src={imageUrl} className='object-contain'/> */}
           <Image
@@ -45,8 +45,8 @@ const Post = ({title, imageUrl,id,author}: Props) => {
             className='z-1'
           />
       </div>
-    </div>
     </Link>
+    </div>
   )
 }
 
