@@ -85,6 +85,67 @@ model Follow {
   @@index([followingId])
 }
 
+model Like {
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+
+  @@id([userId, postId])
+  @@index([userId])
+  @@index([postId])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
+  // community   Community @relation(fields: [communityId], references: [id])
+  // communityId String?
+  // comments    Comment[]
+  likes     Like[]
+  // @@index([communityId])
+  tags      Tag[]    @relation("PostTags")
+
+  @@index([authorId])
+}
+
+model Tag {
+  id String @id @default(cuid())
+
+  name String @unique
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts Post[] @relation("PostTags")
+}
+
+// model Comment {
+//   id        String   @id @default(cuid())
+//   text      String
+//   createdAt DateTime @default(now())
+//   author    User     @relation(fields: [authorId], references: [id])
+//   authorId  String
+//   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+//   postId    String
+
+//   replyToId String?
+//   replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+//   replies   Comment[] @relation("ReplyTo")
+
+//   votes     CommentVote[]
+//   commentId String?
+
+//   @@index([authorId])
+//   @@index([postId])
+//   @@index([replyToId])
+// }
+
 // model Community {
 //   id        String   @id @default(cuid())
 //   name      String   @unique
@@ -110,52 +171,3 @@ model Follow {
 //   @@index([userId])
 //   @@index([communityId])
 // }
-
-model Post {
-  id        String   @id @default(cuid())
-  title     String
-  imageUrl  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
-  // community   Community @relation(fields: [communityId], references: [id])
-  // communityId String?
-  // comments    Comment[]
-  likes     Like[]
-  // @@index([communityId])
-
-  @@index([authorId])
-}
-
-// model Comment {
-//   id        String   @id @default(cuid())
-//   text      String
-//   createdAt DateTime @default(now())
-//   author    User     @relation(fields: [authorId], references: [id])
-//   authorId  String
-//   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-//   postId    String
-
-//   replyToId String?
-//   replyTo   Comment?  @relation("ReplyTo", fields: [replyToId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-//   replies   Comment[] @relation("ReplyTo")
-
-//   votes     CommentVote[]
-//   commentId String?
-
-//   @@index([authorId])
-//   @@index([postId])
-//   @@index([replyToId])
-// }
-
-model Like {
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
-  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId String
-
-  @@id([userId, postId])
-  @@index([userId])
-  @@index([postId])
-}

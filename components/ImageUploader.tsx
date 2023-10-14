@@ -4,24 +4,54 @@ import React, { useState } from 'react'
 import { Trash2, UploadCloud } from 'lucide-react'
 import { uploadFiles } from '@/lib/uploadthing';
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { PostCreationRequest, PostValidator } from '@/lib/validators/post'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import TagSelect from './TagSelect';
+import makeAnimated from 'react-select/animated';
+import AsyncCreatableSelect from 'react-select/async-creatable';
 
+const animatedComponents = makeAnimated();
 
 type FormData = z.infer<typeof PostValidator>
 
+const promiseOptions = (inputValue:string,callback:any) => {
+  // Use the fetch API to make an HTTP request to your endpoint
+  return fetch(`/api/tags/${inputValue}`)
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .then((data) => {
+      // Ensure the data from the server is in the expected format
+      if (Array.isArray(data)) {
+        // Map the data to the format required by the component
+        const options = data.map((tag) => ({ value: tag.id, label: tag.name }));
+
+        callback(options);
+      }
+      return [];
+    })
+    .catch((error) => {
+      console.error('Error fetching tags:', error);
+      return [];
+    });
+};
+
 
 const ImageUploader = () => {
-  const { register, handleSubmit, formState: { errors },setValue, reset} = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors },setValue, reset,control,watch} = useForm<FormData>({
     resolver: zodResolver(PostValidator),
     defaultValues: {
       title: '',
       imageUrl: '',
+      tags: []
     },
   })
 
@@ -56,13 +86,16 @@ const ImageUploader = () => {
     const { mutate: createPost } = useMutation({
       mutationFn: async ({
         title,
-        imageUrl
+        imageUrl,
+        tags
       }: PostCreationRequest) => {
-        const payload: PostCreationRequest = { title, imageUrl }
+        const payload: PostCreationRequest = { title, imageUrl,tags }
         const  {data}  = await axios.post('/api/post/create', payload)
         return data
       },
       onError: () => {
+        setIsLoading(false);
+
         return toast.error('Something Went Wrong',{
           description: 'Your post was not published. Please try again.',
           duration: 4000
@@ -91,9 +124,10 @@ const ImageUploader = () => {
 
       const payload: PostCreationRequest = {
         title: data.title,
-        imageUrl: url
+        imageUrl: url,
+        tags: data.tags
       }
-  
+
       createPost(payload)
     }
 
@@ -109,7 +143,7 @@ const ImageUploader = () => {
           selectedImageURL ? (
             <div className='flex gap-4 justify-center items-center w-full'>
               <div className='flex bg-base-200 p-6 w-[80%] rounded-xl gap-8'>
-              <div className='w-[50%] max-h-[600px] rounded-xl'>
+              <div className='w-[50%] max-h-[600px] rounded-xl flex items-center'>
               <img src={selectedImageURL} className='object-contain rounded-xl max-w-[100%] max-h-[100%]' alt="Selected"/>
               </div>
               <div className='w-[50%]'>
@@ -139,14 +173,35 @@ const ImageUploader = () => {
                   className='input rounded-md w-full'
                 />
                 </div>
-                <div className='flex flex-col gap-2 w-full px-8'>
-                <label>Location</label>
-                <input
-                  type='text'
-                  placeholder='enter a location'
-                  className='input rounded-md w-full'
+                {/* <div className='mt-4 flex flex-col gap-2 w-full px-8'>
+                  <label>Tags</label>
+                  <AsyncCreatableSelect
+                      components={animatedComponents}
+                      isMulti
+                      cacheOptions
+                      defaultOptions
+                      loadOptions={promiseOptions}
+                  />
+                </div> */}
+                <Controller
+                name='tags'
+                control={control}
+                defaultValue={[]}
+                render={({ field }) => (
+                  <AsyncCreatableSelect
+                      {...field}
+                      components={animatedComponents}
+                      isMulti
+                      cacheOptions
+                      defaultOptions
+                      // loadOptions={promiseOptions}
+                      loadOptions={(inputValue, callback) =>
+                        promiseOptions(inputValue, callback)
+                      }
+                      {...field}
+                  />
+                )}
                 />
-                </div>
                 <div className='mt-16 flex justify-center'>
                   <button disabled={isLoading} type='submit' className='btn btn-primary rounded-md px-8'>
                     {
