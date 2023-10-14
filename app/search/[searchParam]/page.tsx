@@ -1,4 +1,5 @@
 import PostFeed from '@/components/HomeFeed/PostFeed'
+import { INITIAL_POST_NUMBER } from '@/lib/constants'
 import { db } from '@/lib/db'
 import React from 'react'
 
@@ -22,7 +23,7 @@ const page = async ({params}: Props) => {
     include:{
       author: true
     },
-    // take: 4
+    take: INITIAL_POST_NUMBER
   })
 
   if(posts.length === 0){
@@ -32,17 +33,9 @@ const page = async ({params}: Props) => {
       </div>
     )
   }
+
   return (
-    // <div>
-    //   {
-    //     posts.map(post=><div key={post.id}>{post.title}
-    //     <div>
-    //       <img src={post.imageUrl}/>
-    //     </div>
-    //     </div>)
-    //   }
-    // </div>
-    <PostFeed initialPosts={posts} endpoint={`/search/${params.searchParam}`}/>
+    <PostFeed initialPosts={posts} endpoint={`/search/${params.searchParam}`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
   )
 }
 

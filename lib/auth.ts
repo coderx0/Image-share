@@ -20,6 +20,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
     CredentialsProvider({
+      // @ts-ignore
       async authorize(credentials :{
         email: string,
         password: string,

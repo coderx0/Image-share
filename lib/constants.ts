@@ -1,0 +1,1 @@
+export const INITIAL_POST_NUMBER = 6

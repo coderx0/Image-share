@@ -1,6 +1,7 @@
 import { db } from '@/lib/db'
 import React from 'react'
 import PostFeed from './PostFeed'
+import { INITIAL_POST_NUMBER } from '@/lib/constants'
 
 const HomeFeed = async() => {
     const posts = await db.post.findMany({
@@ -10,12 +11,12 @@ const HomeFeed = async() => {
         include: {
           author: true,
         },
-        // take: 4,
+        take: INITIAL_POST_NUMBER,
       })
 
   return (
     <>
-    <PostFeed initialPosts={posts} endpoint='/post'/>
+    <PostFeed initialPosts={posts} endpoint='/post' shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
     </>
   )
 }
