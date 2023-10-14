@@ -43,6 +43,7 @@ const page: FC<pageProps> = ({}) => {
       return data
     },
     onError: (error) => {
+      // @ts-ignore
       console.log({error: error.response.data})
       return toast.error('Something Went Wrong',{
         description: 'Could not create an account. Please try again.',
