@@ -80,7 +80,7 @@ const PostLike = ({likes,postId}: Props) => {
         {
             liked? <Heart fill='green' stroke='green'/>:<Heart/>
         }
-        <span>
+        <span className='hidden md:block'>
             Likes
         </span>
         <span>

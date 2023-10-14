@@ -9,6 +9,10 @@ interface Props{
     }
 }
 
+
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+
 const page:FC<Props> = async ({params}) => {
 
   const post = await db.post.findFirst({
@@ -24,6 +28,8 @@ const page:FC<Props> = async ({params}) => {
   if(!post){
     return notFound();
   }
+
+  console.log({likes: post.likes})
 
   return (
   <PageModal post={post}/>

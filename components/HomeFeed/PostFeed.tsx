@@ -88,27 +88,6 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
         })
         }
     </Masonry>
-      {/* <div className='flex gap-4 flex-wrap px-12 justify-center items-start pt-6 pb-12'>
-        {
-        initialPosts.map((post,index)=>{
-          if(index === initialPosts.length - 1){
-            return (
-              <div key={post.id}>
-                <Post id={post.id} title={post.title} imageUrl={post.imageUrl}/>
-              </div>
-            )
-          }
-          else{
-            return (
-              <div key={post.id}>
-                <Post id={post.id} title={post.title} imageUrl={post.imageUrl}/>
-              </div>
-            )
-          }
-        })
-        }
-    </div> */}
-
       {isFetchingNextPage && (
         <li className='flex justify-center'>
           <Loader2 className='w-6 h-6 text-zinc-500 animate-spin' />

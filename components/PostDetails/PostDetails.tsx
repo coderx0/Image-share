@@ -17,9 +17,9 @@ const PostDetails = async({
     title, imageUrl, imageId, likes, author,postId
 }: Props) => {
   return (
-    <div className='p-6'>
+    <div className='p-2 md:p-6'>
         <div className='flex'>
-            <div className='flex flex-1 gap-2 items-start'>
+            <div className='hidden md:flex flex-1 gap-2 items-start'>
                 <div className="bg-red-100 w-12 h-12 flex justify-center items-center rounded-full">
                     {
                         author.image ? (<img src={author.image} className='rounded-full'/>):
@@ -39,20 +39,25 @@ const PostDetails = async({
                     </button>
                 </div>
             </div>
-            <div className='flex gap-2'>
+            <div className='flex gap-2 w-full md:w-fit'>
                 <button className='btn rounded-md '>
                     <Bookmark/>
-                    <span>
+                    <span className='hidden md:block'>
                         Collect
                     </span>
                 </button>
                 <PostLike likes={likes} postId={postId}/>
+                <button className='btn rounded-md md:hidden'>
+                <Share2/>
+                </button>
+                <div className='flex flex-1 justify-end'>
                 <button className='btn btn-primary rounded-md'>
                     <Download/>
-                    <span>
+                    <span className='hidden md:block'>
                         Download
                     </span>
                 </button>
+                </div>
             </div>
         </div>
         <div className='flex justify-center mt-4'>
@@ -60,7 +65,27 @@ const PostDetails = async({
                 <img src={imageUrl} className='h-full w-auto object-contain'/>
             </div>
         </div>
-        <div className='flex justify-end mt-4'>
+        <div className='flex md:hidden flex-1 gap-2 items-center mt-4'>
+                <div className="bg-red-100 w-12 h-12 flex justify-center items-center rounded-full">
+                    {
+                        author.image ? (<img src={author.image} className='rounded-full'/>):
+                        (
+                            <UserIcon className=''/>
+                        )
+                    }
+                </div>
+                <div className='flex flex-1 items-center gap-6'>
+                    <Link href={`/user/${author.id}`} className='cursor-pointer'>
+                    <span className='font-semibold text-md pl-2'>
+                        {author.name}
+                    </span>
+                    </Link>
+                    <button className='btn btn-ghost btn-sm text-gray-800 font-normal hover:text-dark rounded-lg'>
+                            Follow
+                    </button>
+                </div>
+            </div>
+        <div className='hidden md:flex justify-end mt-4'>
             <button className='btn rounded-md'>
                 <Share2/>
                 <span>Share</span>

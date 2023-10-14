@@ -3,6 +3,11 @@ import { db } from '@/lib/db'
 import { notFound } from 'next/navigation'
 import React from 'react'
 
+
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+
+
 interface Props{
     params:{
       photoId:string
@@ -26,7 +31,6 @@ const Page = async ({params}:Props) => {
   }
 
   return (
-    <div>
       <PostDetails 
         postId={post.id}
         title={post.title}
@@ -35,7 +39,6 @@ const Page = async ({params}:Props) => {
         author={post.author}
         likes={post.likes}
       />
-    </div>
   )
 }
 
