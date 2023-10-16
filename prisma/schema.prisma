@@ -64,7 +64,8 @@ model User {
   followers Follow[] @relation("Following")
 
   // Define a field for the users this user is following
-  following Follow[] @relation("Follower")
+  following   Follow[]     @relation("Follower")
+  collections Collection[]
 
   // Comment     Comment[]
   // CommentVote CommentVote[]
@@ -97,19 +98,20 @@ model Like {
 }
 
 model Post {
-  id        String   @id @default(cuid())
-  title     String
-  imageUrl  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+  id          String       @id @default(cuid())
+  title       String
+  imageUrl    String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  author      User         @relation(fields: [authorId], references: [id])
+  authorId    String
   // community   Community @relation(fields: [communityId], references: [id])
   // communityId String?
   // comments    Comment[]
-  likes     Like[]
+  likes       Like[]
   // @@index([communityId])
-  tags      Tag[]    @relation("PostTags")
+  tags        Tag[]        @relation("PostTags")
+  collections Collection[]
 
   @@index([authorId])
 }
@@ -123,6 +125,20 @@ model Tag {
   updatedAt DateTime @updatedAt
 
   posts Post[] @relation("PostTags")
+}
+
+model Collection {
+  id String @id @default(cuid())
+
+  title    String  @unique
+  isPublic Boolean @default(true)
+
+  creatorId String
+  creator   User   @relation(fields: [creatorId], references: [id])
+
+  posts Post[]
+
+  @@index([creatorId])
 }
 
 // model Comment {

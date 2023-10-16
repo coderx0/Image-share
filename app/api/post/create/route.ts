@@ -4,34 +4,6 @@ import { PostValidator } from '@/lib/validators/post'
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
 
-// const cuidRegex = /^[a-z0-9]{25}$/i; // Case-insensitive match
-
-// const isCuid = (value:string) => cuidRegex.test(value);
-
-// const createTagIfNotExists = async(tag:{value: string,label:string})=>{
-//   try{
-//     const existingTag = await db.tag.findUnique({
-//       where:{
-//         id: tag.value
-//       }
-//     })
-  
-//     if(!existingTag){
-//       await db.tag.create({
-//         data:{
-//           name: tag.label
-//         }
-//       })
-//     }
-//   }
-//   catch(error){
-//     return new Response(
-//       'error creating tag',
-//       { status: 500 }
-//     )
-//   }
-// };
-
 export async function POST(req: Request) {
   try {
     const body = await req.json()

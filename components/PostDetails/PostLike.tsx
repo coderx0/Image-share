@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react'
 import { Like } from '@prisma/client'
 import { Heart } from 'lucide-react'
-import { getAuthSession } from '@/lib/auth'
 import { useSession } from 'next-auth/react'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'

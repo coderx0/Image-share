@@ -3,6 +3,7 @@ import { Bookmark, Download, Heart, Share2, User as UserIcon } from 'lucide-reac
 import Link from 'next/link'
 import React from 'react'
 import PostLike from './PostLike'
+import CollectPost from '../CollectPost'
 
 interface Props {
     title: string,
@@ -17,7 +18,8 @@ const PostDetails = async({
     title, imageUrl, imageId, likes, author,postId
 }: Props) => {
   return (
-    <div className='p-2 md:p-6'>
+    <>
+        <div className='p-2 md:p-6'>
         <div className='flex'>
             <div className='hidden md:flex flex-1 gap-2 items-start'>
                 <div className="bg-red-100 w-12 h-12 flex justify-center items-center rounded-full">
@@ -40,12 +42,13 @@ const PostDetails = async({
                 </div>
             </div>
             <div className='flex gap-2 w-full md:w-fit'>
-                <button className='btn rounded-md '>
+                {/* <button className='btn rounded-md '>
                     <Bookmark/>
                     <span className='hidden md:block'>
                         Collect
                     </span>
-                </button>
+                </button> */}
+                <CollectPost postId={postId}/>
                 <PostLike likes={likes} postId={postId}/>
                 <button className='btn rounded-md md:hidden'>
                 <Share2/>
@@ -92,6 +95,7 @@ const PostDetails = async({
             </button>
         </div>
     </div>
+    </>
   )
 }
 
