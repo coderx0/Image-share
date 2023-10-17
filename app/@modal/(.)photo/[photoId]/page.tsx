@@ -29,8 +29,6 @@ const page:FC<Props> = async ({params}) => {
     return notFound();
   }
 
-  console.log({likes: post.likes})
-
   return (
   <PageModal post={post}/>
   )

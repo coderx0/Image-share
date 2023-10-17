@@ -36,8 +36,8 @@ export default function RootLayout({
           <Drawer>
             {children}
           </Drawer>
-            {modal}
           <Toaster richColors/>
+            {modal}
         </Providers>
       </body>
     </html>

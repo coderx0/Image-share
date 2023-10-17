@@ -53,6 +53,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
     }
   )
 
+  // console.log({shouldFetchNext})
   useEffect(() => {
     if (entry?.isIntersecting && !stopFetch && !isFetchingNextPage && shouldFetchNext) {
       console.log("lol")

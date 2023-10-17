@@ -14,7 +14,7 @@ interface Props {
     postId: string
 }
 
-const PostDetails = async({
+const PostDetails = ({
     title, imageUrl, imageId, likes, author,postId
 }: Props) => {
   return (
@@ -42,12 +42,7 @@ const PostDetails = async({
                 </div>
             </div>
             <div className='flex gap-2 w-full md:w-fit'>
-                {/* <button className='btn rounded-md '>
-                    <Bookmark/>
-                    <span className='hidden md:block'>
-                        Collect
-                    </span>
-                </button> */}
+                
                 <CollectPost postId={postId}/>
                 <PostLike likes={likes} postId={postId}/>
                 <button className='btn rounded-md md:hidden'>

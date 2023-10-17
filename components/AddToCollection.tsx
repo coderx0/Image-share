@@ -15,14 +15,14 @@ interface Props {
     title: string,
     isPublic: boolean,
     creatorId: string,
-    posts: Post[]
+    posts: Post[],
 }
 
 type CollectType = {
     collectType: 'COLLECT' | 'UNCOLLECT',
 }
 
-const AddToCollection = ({collection,postId}:{collection: Props,postId: string}) => {
+const AddToCollection = ({collection,postId,refetch}:{collection: Props,postId: string,refetch: ()=>{}}) => {
     const {data: session} = useSession();
     const router = useRouter();
     const [collected, setCollected] = useState<boolean>(false);
@@ -53,6 +53,7 @@ const AddToCollection = ({collection,postId}:{collection: Props,postId: string})
           // router.push(newPathname)
 
           console.log('ok')
+          refetch();
     
           // router.refresh()
     
