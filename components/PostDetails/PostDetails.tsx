@@ -36,7 +36,7 @@ const PostDetails = ({
                         {author.name}
                     </span>
                     </Link>
-                    <button className='btn btn-ghost btn-sm p-2 text-gray-500 font-normal hover:text-dark'>
+                    <button className='btn btn-ghost btn-sm p-2 text-base-content/60 font-normal hover:text-dark'>
                         Follow
                     </button>
                 </div>

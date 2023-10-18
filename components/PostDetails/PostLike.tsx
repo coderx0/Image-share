@@ -50,7 +50,6 @@ const PostLike = ({likes,postId}: Props) => {
           // const newPathname = pathname.split('/').slice(0, -1).join('/')
           // router.push(newPathname)
 
-          console.log('liked')
     
           // router.refresh()
     

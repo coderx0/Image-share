@@ -74,12 +74,12 @@ const layout = async ({children,params}:Props) => {
             }
             <div className='flex gap-4 items-center'>
                 <div className='p-4 flex flex-col justify-center items-center px-8'>
-                    <span className='font-semibold text-gray-600'>Total Posts</span>
+                    <span className='font-semibold text-base-content/60'>Total Posts</span>
                     <span className='text-2xl font-semibold mt-3'>{postCount}</span>
                 </div>
                 <div className='border-1 border-dark h-12'/>
                 <div className='p-4 flex flex-col justify-center items-center px-8'>
-                    <span className='font-semibold text-gray-600'>Likes Received</span>
+                    <span className='font-semibold text-base-content/60'>Likes Received</span>
                     <span className='text-2xl font-semibold mt-3'>0</span>
                 </div>
             </div>

@@ -1,17 +1,22 @@
 "use client"
 
-import { LogOut,UserCircle } from 'lucide-react'
-
 import { signOut } from 'next-auth/react'
 
 import type { Session, User } from 'next-auth'
 import {Avatar,Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Dispatch, SetStateAction } from 'react';
 
-const UserButton = ({session}: {session: Session | null}) => {
+const UserButton = ({session,setIsChecked}: {session: Session | null,setIsChecked: Dispatch<SetStateAction<boolean>>}) => {
+  const router  = useRouter();
   const handleAction = (action : string)=>{
     if(action === 'signout'){
       signOut();
+    }
+    else if(action === 'profile'){
+      setIsChecked(false)
+      router.push(`/user/${session?.user.id}`)
     }
   }
   return (
@@ -19,7 +24,7 @@ const UserButton = ({session}: {session: Session | null}) => {
       {
         session ? 
         (
-          <Dropdown>
+          <Dropdown className='bg-base-100 text-base-content'>
           <DropdownTrigger>
           <Avatar name={session.user.name!} />
           </DropdownTrigger>
@@ -28,9 +33,7 @@ const UserButton = ({session}: {session: Session | null}) => {
             className='rounded-lg'
             onAction={(key) => handleAction(key as string)}
           >
-            <DropdownItem key="new">New file</DropdownItem>
-            <DropdownItem key="copy">Copy link</DropdownItem>
-            <DropdownItem key="edit">Edit file</DropdownItem>
+            <DropdownItem key="profile">User Profile</DropdownItem>
             <DropdownItem key="signout" className="text-danger" color="danger">
               Logout
             </DropdownItem>

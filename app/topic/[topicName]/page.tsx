@@ -43,8 +43,8 @@ const TopicPage = async({
         )
     }
   return (
-    <div>
-        <h2 className='text-3xl text-center mt-6 font-semibold'>{params.topicName}</h2>
+    <div className='bg-base-100'>
+        <h2 className='text-3xl text-center pt-8 font-semibold text-base-content'>{params.topicName}</h2>
         <PostFeed initialPosts={topic.posts} endpoint={`/topic/${topic.name}`} shouldFetchNext={topic.posts.length === INITIAL_POST_NUMBER}/>
     </div>
   )

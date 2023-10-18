@@ -29,9 +29,9 @@ export default function RootLayout({
         'antialiased ',
         inter.className
       )}
-      data-theme="cupcake"
+      data-theme="luxury"
       >
-      <body className='min-h-screen antialiased'>
+      <body className='min-h-screen antialiased bg-base-100'>
         <Providers>
           <Drawer>
             {children}

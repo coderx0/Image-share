@@ -85,18 +85,17 @@ const CollectPost = ({postId}: {postId: string}) => {
         createCollection(data)
     }
 
-    console.log("hello")
   return (
     <>
-        <Button isIconOnly className='bg-base-200 rounded-md h-12 w-12'
+        <Button isIconOnly className='bg-base-200 rounded-md h-12 w-12 hover:bg-base-300'
         onPress={onOpen}
         >
-            <Bookmark/>
+            <Bookmark className='text-base-content'/>
             {/* <span className='hidden md:block'>
                 Collect
             </span> */}
         </Button>
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} className='bg-base-100 text-base-content'>
         <ModalContent>
           {(onClose) => (
             <>

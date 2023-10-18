@@ -19,7 +19,7 @@ const Drawer = ({children}: {children: React.ReactNode}) => {
     
     <div className="flex justify-between w-full navbar gap-2 bg-base-300 fixed z-20">
       <div className="md:px-2 md:mx-2">
-        <Link href='/' className='font-semibold text-md md:text-xl'>
+        <Link href='/' className='font-semibold text-md md:text-xl text-base-content'>
             ImageDash
         </Link>
       </div>
@@ -27,17 +27,17 @@ const Drawer = ({children}: {children: React.ReactNode}) => {
       <div className="flex-none hidden lg:block">
         <ul className="menu menu-horizontal items-center gap-4 p-0">
           <li>
-            <Link href='/explore' className='btn btn-sm rounded-lg btn-ghost'>
+            <Link href='/explore' className='btn btn-sm rounded-lg btn-ghost text-base-content'>
                 Explore
             </Link>
           </li>
           <li>
-            <Link href='/upload' className='btn btn-sm rounded-lg btn-ghost'>
+            <Link href='/upload' className='btn btn-sm rounded-lg btn-ghost text-base-content'>
                 Upload
             </Link>
           </li>
             <li>
-              <UserButton session={session}/>
+              <UserButton session={session} setIsChecked={setIsChecked}/>
             </li>
         
         </ul>
@@ -49,7 +49,7 @@ const Drawer = ({children}: {children: React.ReactNode}) => {
       </div> 
     </div>
     {/* Page content here */}
-    <main className='mt-16 z-10'>
+    <main className='mt-16 z-10 bg-base-100 text-base-content'>
         {children}
     </main>
   </div> 
@@ -64,7 +64,7 @@ const Drawer = ({children}: {children: React.ReactNode}) => {
         Upload
       </Link>
       <div className='pl-4' onClick={()=>setIsChecked(false)}>
-      <UserButton session={session}/>
+      <UserButton session={session} setIsChecked={setIsChecked}/>
       </div>
     </ul>
   </div>

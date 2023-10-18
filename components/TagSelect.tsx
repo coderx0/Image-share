@@ -15,7 +15,6 @@ const animatedComponents = makeAnimated();
             return response.json();
         })
         .then((data) => {
-          console.log({data})
         // Ensure the data from the server is in the expected format
         if (Array.isArray(data)) {
           // Map the data to the format required by the component

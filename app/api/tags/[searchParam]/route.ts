@@ -5,7 +5,6 @@ export async function GET(req: Request,
 {params}:{params:{searchParam:string}}
     ) {
   try {
-    console.log({name: params.searchParam})
     const tags = await db.tag.findMany({
         where:{
             name:{

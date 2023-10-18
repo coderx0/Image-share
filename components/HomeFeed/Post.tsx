@@ -20,15 +20,12 @@ const Post = ({title, imageUrl,id,author}: Props) => {
           <Heart/>
         </button>
         <CollectPost postId={id}/>
-        {/* <button className='btn rounded-lg p-2 px-3 bg-base-100'>
-          <Bookmark/>
-        </button> */}
       </div>
       <div className='absolute bottom-0 z-20 left-0 bg-gradient-to-t from-[#2d3436] to-transparent hidden group-hover:flex gap-2 w-full justify-between p-2'>
         <Link href={`/user/${author.id}`}>
           <div className='flex items-center gap-2 text-white'>
             <Avatar showFallback name={author.name!} src={author.image!}/>
-            <span>
+            <span className=''>
               {author.name}
             </span>
           </div>

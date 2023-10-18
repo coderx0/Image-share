@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 import TagSelect from './TagSelect';
 import makeAnimated from 'react-select/animated';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import { useSession } from 'next-auth/react';
 
 const animatedComponents = makeAnimated();
 
@@ -60,6 +61,7 @@ const ImageUploader = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const router = useRouter();
+    const {data: session} = useSession();
 
     const uploadImage = async(e:React.ChangeEvent<HTMLInputElement>)=>{
         const file = e.target.files?.[0];
@@ -108,7 +110,9 @@ const ImageUploader = () => {
           description: 'Your post has been published.',
         })
 
-        location.assign(`${process.env.NEXT_PUBLIC_CLIENT_URL}/photo/${data.postId}`)
+        router.push(`/user/${session?.user.id}`)
+
+        // location.assign(`${process.env.NEXT_PUBLIC_CLIENT_URL}/photo/${data.postId}`)
         return;
       },
     })
