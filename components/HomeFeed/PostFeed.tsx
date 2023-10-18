@@ -62,6 +62,8 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
 
   const posts = data?.pages.flatMap((page) => page) ?? initialPosts
 
+  console.log({posts,initialPosts})
+
   return (
     <>
     <Masonry
