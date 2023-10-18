@@ -32,7 +32,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
   const [stopFetch, setStopFetch] = useState(false);
 
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-    ['infinite-query'],
+    [`${endpoint.slice(1)}`],
     async ({ pageParam = 1 }) => {
       const query = `/api/${endpoint}?limit=${INITIAL_POST_NUMBER}&page=${pageParam}`
       
@@ -53,16 +53,15 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
     }
   )
 
-  // console.log({shouldFetchNext})
   useEffect(() => {
     if (entry?.isIntersecting && !stopFetch && !isFetchingNextPage && shouldFetchNext) {
+      console.log('fetching next page')
       fetchNextPage()
     }
   }, [entry, fetchNextPage,stopFetch,isFetchingNextPage])
 
   const posts = data?.pages.flatMap((page) => page) ?? initialPosts
 
-  // console.log({posts})
   return (
     <>
     <Masonry
