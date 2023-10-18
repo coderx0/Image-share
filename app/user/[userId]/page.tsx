@@ -32,7 +32,7 @@ const page = async({params}: Props) => {
   }
 
     return (
-    <PostFeed initialPosts={posts} endpoint={`/user/${params.userId}/posts`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
+    <PostFeed initialPosts={posts.reverse()} endpoint={`/user/${params.userId}/posts`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
   )
 }
 
