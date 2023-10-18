@@ -1,1 +1,1 @@
-export const INITIAL_POST_NUMBER = 6
+export const INITIAL_POST_NUMBER = 12

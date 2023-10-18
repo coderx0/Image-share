@@ -4,10 +4,6 @@ import PostFeed from './PostFeed'
 import { INITIAL_POST_NUMBER } from '@/lib/constants'
 
 
-// export const dynamic = 'force-dynamic'
-// export const fetchCache = 'force-no-store'
-
-
 const HomeFeed = async() => {
     const posts = await db.post.findMany({
         orderBy: {

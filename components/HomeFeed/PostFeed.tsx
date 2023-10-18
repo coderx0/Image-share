@@ -9,8 +9,6 @@ import { FC, useEffect, useRef, useState } from 'react'
 import Post from './Post'
 import Masonry from 'react-masonry-css'
 import { INITIAL_POST_NUMBER } from '@/lib/constants'
-import { Spinner } from '@nextui-org/react'
-
 
 interface PostFeedProps {
   initialPosts: ExtendedPost[],
@@ -32,7 +30,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
   })
   const [stopFetch, setStopFetch] = useState(false);
 
-  const { data, fetchNextPage, isFetchingNextPage,isFetching } = useInfiniteQuery(
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     [`${endpoint.slice(1)}`],
     async ({ pageParam = 1 }) => {
       const query = `/api/${endpoint}?limit=${INITIAL_POST_NUMBER}&page=${pageParam}`
@@ -62,14 +60,6 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
   }, [entry, fetchNextPage,stopFetch,isFetchingNextPage])
 
   const posts = data?.pages.flatMap((page) => page) ?? initialPosts
-
-  if(isFetching){
-    return (
-      <div className='w-full h-32 flex justify-center items-center'>
-        <Spinner/>
-      </div>
-    )
-  }
 
   return (
     <>
