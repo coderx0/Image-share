@@ -3,8 +3,8 @@ import { INITIAL_POST_NUMBER } from '@/lib/constants'
 import { db } from '@/lib/db'
 import React from 'react'
 
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
+// export const dynamic = 'force-dynamic'
+// export const fetchCache = 'force-no-store'
 
 interface Props{
     params:{

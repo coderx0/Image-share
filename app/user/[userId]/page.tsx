@@ -10,8 +10,8 @@ interface Props{
 }
 
 
-export const dynamic = 'force-dynamic'
-export const fetchCache = 'force-no-store'
+// export const dynamic = 'force-dynamic'
+// export const fetchCache = 'force-no-store'
 
 
 const page = async({params}: Props) => {
