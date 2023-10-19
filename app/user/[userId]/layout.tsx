@@ -1,6 +1,6 @@
 import FollowUser from '@/components/FollowUser';
+import UserContentSelector from '@/components/UserContentSelector';
 import { db } from '@/lib/db';
-import { user } from '@nextui-org/react';
 import { User } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
@@ -84,10 +84,12 @@ const layout = async ({children,params}:Props) => {
                 </div>
             </div>
         </div>
-        <div className='px-12'>
+        {/* <div className='px-12'>
+            <Link href={`/user/${userDetails.id}`}>
             <button className='btn btn-ghost'>
                 Gallery
             </button>
+            </Link>
             <button className='btn btn-ghost'>
                 Collections
             </button>
@@ -97,7 +99,8 @@ const layout = async ({children,params}:Props) => {
             <button className='btn btn-ghost'>
                 Following
             </button>
-        </div>
+        </div> */}
+        <UserContentSelector userId={userDetails.id}/>
         <div>
             {children}
         </div>

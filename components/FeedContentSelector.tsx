@@ -15,9 +15,9 @@ const FeedContentSelector = () => {
           <Link href='/leaderboard' className={`btn py-1 px-3 text-base-content ${pathName === '/leaderboard' ?'btn-primary text-primary-800':'btn-ghost'}`}>
             LeaderBoard
           </Link >
-          <Link href='/challenges' className={`btn py-1 px-3 text-base-content ${pathName === '/challenges' ?'btn-primary text-primary-800':'btn-ghost'}`}>
+          {/* <Link href='/challenges' className={`btn py-1 px-3 text-base-content ${pathName === '/challenges' ?'btn-primary text-primary-800':'btn-ghost'}`}>
             Challenges
-          </Link >
+          </Link > */}
           <Link href='/myfeed'  className={`btn py-1 px-3 text-base-content ${pathName === '/myfeed' ?'btn-primary text-primary-800':'btn-ghost'}`}>
             My Feed
           </Link >

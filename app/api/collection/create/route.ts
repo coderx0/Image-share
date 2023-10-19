@@ -15,15 +15,15 @@ export async function POST(req: Request) {
     
     const { title } = CollectionValidator.parse(body);
 
-    const alreadyExists = await db.collection.findUnique({
-        where:{
-            title
-        }
-    })
+    // const alreadyExists = await db.collection.findUnique({
+    //     where:{
+    //         title
+    //     }
+    // })
 
-    if(alreadyExists){
-        return new Response('Collection with title already exists', { status:200});
-    }
+    // if(alreadyExists){
+    //     return new Error('Collection with title already exists');
+    // }
 
     await db.collection.create({
         data:{

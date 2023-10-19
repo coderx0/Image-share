@@ -130,7 +130,7 @@ model Tag {
 model Collection {
   id String @id @default(cuid())
 
-  title    String  @unique
+  title    String
   isPublic Boolean @default(true)
 
   creatorId String
