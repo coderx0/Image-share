@@ -7,7 +7,7 @@ import React from 'react'
 const FeedContentSelector = () => {
     const pathName = usePathname();
   return (
-    <div className='mt-4 w-full flex justify-center items-center overflow-hidden'>
+    <div className='mt-4 w-full flex justify-center items-center'>
         <div className='flex gap-4 overflow-auto md:overflow-hidden max-w-[90vw]'>
           <Link href='/' className={`btn py-1 px-3 text-base-content ${pathName === '/' ?'btn-primary text-primary-800':'btn-ghost'}`}>
             Home

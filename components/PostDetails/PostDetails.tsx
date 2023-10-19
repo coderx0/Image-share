@@ -80,7 +80,7 @@ const PostDetails = ({
             </div>
         </div>
         <div className='flex md:hidden flex-1 gap-2 items-center mt-4'>
-                <div className="bg-red-100 w-12 h-12 flex justify-center items-center rounded-full">
+                {/* <div className="bg-red-100 w-12 h-12 flex justify-center items-center rounded-full">
                     {
                         author.image ? (<img src={author.image} className='rounded-full'/>):
                         (
@@ -97,7 +97,8 @@ const PostDetails = ({
                     <button className='btn btn-ghost btn-sm text-gray-800 font-normal hover:text-dark rounded-lg'>
                             Follow
                     </button>
-                </div>
+                </div> */}
+                <PostAuthor author={author}/>
             </div>
         <div className='hidden md:flex justify-end mt-4'>
             <button className='btn rounded-md'>
