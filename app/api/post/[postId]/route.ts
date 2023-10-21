@@ -1,17 +1,30 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
+import { redis } from '@/lib/redis'
 
 export async function GET(req: Request,{params}:{params: {postId:string}}) {
   try {
-    const postDetails = await db.post.findFirst({
+
+    let postDetails = await redis.hgetall(`postDetails_${params.postId}`)
+
+    if(!postDetails){
+      postDetails = await db.post.findFirst({
         where:{
-            id: params.postId
+          id: params.postId
         },
         include:{
-            author: true,
-            likes: true
+          author: true,
+          likes: true
         }
-    })
+      })
+      
+      if(!postDetails){
+        return new Response('Can not fetch',{status:400});
+      }
+    
+    await redis.hset(`postDetails_${postDetails.id}`,postDetails);
+    }
+    
     return new Response(JSON.stringify({postDetails}))
   } catch (error) {
     return new Response('Could not fetch post details', { status: 500 })
