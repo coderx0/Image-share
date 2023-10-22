@@ -49,7 +49,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
           <Download/>
         </button>
       </div>
-    <Link href={`/photo/${id}`}>
+    <Link href={`/photo/${id}`} prefetch={true}>
       <div className='max-w-[500px]'>
           <Image
             alt={title}
