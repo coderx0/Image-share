@@ -48,7 +48,7 @@ const layout = async ({children,params}:Props) => {
             {
                 userDetails.image?(
                     <div className='h-16 w-16'>
-                        <img src={userDetails.image} className='object-cover'/>
+                        <img src={userDetails.image} className='object-cover rounded-full'/>
                     </div>
                 )
                 :
@@ -84,22 +84,7 @@ const layout = async ({children,params}:Props) => {
                 </div>
             </div>
         </div>
-        {/* <div className='px-12'>
-            <Link href={`/user/${userDetails.id}`}>
-            <button className='btn btn-ghost'>
-                Gallery
-            </button>
-            </Link>
-            <button className='btn btn-ghost'>
-                Collections
-            </button>
-            <button className='btn btn-ghost'>
-                Followers
-            </button>
-            <button className='btn btn-ghost'>
-                Following
-            </button>
-        </div> */}
+        
         <UserContentSelector userId={userDetails.id}/>
         <div>
             {children}

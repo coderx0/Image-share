@@ -26,8 +26,10 @@ const page = async({params}: Props) => {
   })
 
   if(!posts || posts.length===0){
-    return <div>
-        No Posts
+    return <div className='p-8 flex justify-center items-center h-36'>
+      <h4 className='text-3xl font-semibold'>
+      No Posts yet. Upload Some !!!
+      </h4>
     </div>
   }
 
