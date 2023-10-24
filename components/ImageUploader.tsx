@@ -156,7 +156,6 @@ const ImageUploader = () => {
                 {...register('imageUrl')}
                 type="text"
                 name="uploadedFile"
-                // onChange={uploadImage}
                 className="hidden"
                 />
                 <div className='flex flex-col gap-2 w-full px-8 mb-6'>
@@ -177,16 +176,6 @@ const ImageUploader = () => {
                   className='input rounded-md w-full'
                 />
                 </div>
-                {/* <div className='mt-4 flex flex-col gap-2 w-full px-8'>
-                  <label>Tags</label>
-                  <AsyncCreatableSelect
-                      components={animatedComponents}
-                      isMulti
-                      cacheOptions
-                      defaultOptions
-                      loadOptions={promiseOptions}
-                  />
-                </div> */}
                 <Controller
                 name='tags'
                 control={control}

@@ -3,6 +3,7 @@ import UserContentSelector from '@/components/UserContentSelector';
 import { db } from '@/lib/db';
 import { User } from 'lucide-react';
 import { getServerSession } from 'next-auth';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import React from 'react'
 
@@ -41,7 +42,6 @@ const layout = async ({children,params}:Props) => {
             authorId: userDetails.id
         }
     })
-
   return (
     <div className='flex flex-col'>
         <div className='flex flex-col items-center gap-4 justify-center pt-16'>
@@ -63,9 +63,9 @@ const layout = async ({children,params}:Props) => {
             {
                 (session && session.user.email === userDetails.email) ?
                 (
-                    <button className='btn btn-success rounded-md'>
+                    <Link href={`/user/edit-profile/${userDetails.id}`} className='btn btn-success rounded-md'>
                         Edit Profile
-                    </button>
+                    </Link>
                 )
                 :
                 (
