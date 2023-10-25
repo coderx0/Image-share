@@ -1,5 +1,6 @@
 import EditProfile from '@/components/EditProfile';
 import { getAuthSession } from '@/lib/auth'
+import { db } from '@/lib/db';
 import React from 'react'
 
 const EditProfilePage = async ({params}:{
@@ -8,6 +9,7 @@ const EditProfilePage = async ({params}:{
     }
 }) => {
     const session  = await getAuthSession();
+    
     if(!session || session.user.id !== params.userId){
         return (
             <div className='w-full h-72 flex'>
@@ -18,8 +20,22 @@ const EditProfilePage = async ({params}:{
         )
     }
 
+    const userDetails = await db.user.findFirst({
+        where:{
+            id: session.user.id
+        }
+    }) 
+    
+    if(!userDetails){
+        return null;
+    }
+
   return (
-    <EditProfile/>
+    <EditProfile 
+        userId={params.userId} 
+        userName={userDetails.username || ''}
+        bio={userDetails.bio || ''}
+    />
   )
 }
 

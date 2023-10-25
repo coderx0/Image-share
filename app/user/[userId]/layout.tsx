@@ -47,7 +47,7 @@ const layout = async ({children,params}:Props) => {
         <div className='flex flex-col items-center gap-4 justify-center pt-16'>
             {
                 userDetails.image?(
-                    <div className='h-16 w-16'>
+                    <div className='h-28 w-28'>
                         <img src={userDetails.image} className='object-cover rounded-full'/>
                     </div>
                 )

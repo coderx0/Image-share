@@ -26,7 +26,17 @@ const UserButton = ({session,setIsChecked}: {session: Session | null,setIsChecke
         (
           <Dropdown className='bg-base-100 text-base-content'>
           <DropdownTrigger>
-          <Avatar name={session.user.name!} />
+          {
+            session.user.image ? (
+              <div className="avatar p-0 rounded-full">
+              <div className="w-10 rounded-full">
+                <img src={session.user.image} alt={`${session.user.name}_image`}/>
+              </div>
+            </div>
+            ):(
+              <Avatar name={session.user.name!} />
+            )
+          }
           </DropdownTrigger>
           <DropdownMenu 
             aria-label="User Profile Menu" 
