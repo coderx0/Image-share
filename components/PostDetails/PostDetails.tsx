@@ -38,8 +38,17 @@ const PostDetails = ({
                         </Link>
                     )
                 }
+
+                {
+                    session ? (
+                    <PostLike postId={postId}/>
+                    ):(
+                        <Link href='/sign-in' className='btn rounded-lg p-2 px-3 bg-base-200'>
+                            <Heart/>
+                        </Link>
+                    )
+                }
                 
-                <PostLike postId={postId}/>
                 <button className='btn rounded-md md:hidden'>
                 <Share2/>
                 </button>
