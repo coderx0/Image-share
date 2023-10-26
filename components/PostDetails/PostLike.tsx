@@ -1,17 +1,16 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Like } from '@prisma/client'
 import { Heart } from 'lucide-react'
 import { useSession } from 'next-auth/react'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { PostLikeRequest } from '@/lib/validators/like'
 
 interface Props{
-    likes: Like[],
     postId: string
 }
 
@@ -19,18 +18,30 @@ type LikeType = {
     likeType: 'LIKE' | 'UNLIKE',
 }
 
-const PostLike = ({likes,postId}: Props) => {
+const PostLike = ({postId}: Props) => {
     const {data: session} = useSession();
     const [liked, setLiked] = useState<boolean>(false);
     const router = useRouter();
 
-    useEffect(()=>{
-      if(session?.user.id){
-        const isLiked = !!likes.find(like=>(like.postId === postId && like.userId === session?.user.id));
-        setLiked(isLiked)
+    const fetchUserLikes = useCallback(async ()=>{
+      try{
+          const response = await axios.get('/api/post/userLikes')
+          return response.data;
       }
-    },[likes,session?.user.id])
+      catch(err){
+          toast.error("Unable to fetch Likes")
+      }
+  },[session?.user.id]);
 
+  const {data, isLoading: collectionLoading,refetch} = useQuery(['user_likes'],fetchUserLikes)
+  
+
+  useEffect(()=>{
+    if(session?.user.id && data){
+      const isLiked = !!data?.userLikes.find((like: any)=>(like.postId === postId && like.userId === session?.user.id));
+      setLiked(isLiked)
+    }
+  },[data,session?.user.id])
 
     const { mutate: likePost } = useMutation({
         mutationFn: async ({
@@ -47,6 +58,7 @@ const PostLike = ({likes,postId}: Props) => {
           })
         },
         onSuccess: () => {
+          refetch()
           // const newPathname = pathname.split('/').slice(0, -1).join('/')
           // router.push(newPathname)
 
@@ -74,16 +86,10 @@ const PostLike = ({likes,postId}: Props) => {
       }
 
   return (
-    <button className={`btn rounded-md ${liked && 'btn-primary'}`} onClick={likeHandler}>
+    <button className={`btn rounded-md`} onClick={likeHandler}>
         {
-            liked? <Heart fill='green' stroke='green'/>:<Heart/>
+            liked? <Heart fill='pink' stroke='pink'/>:<Heart/>
         }
-        <span className='hidden md:block'>
-            Likes
-        </span>
-        <span>
-            {likes?.length}
-        </span>
     </button>
   )
 }

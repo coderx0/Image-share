@@ -1,4 +1,3 @@
-import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
 import { redis } from '@/lib/redis'
 
@@ -14,7 +13,6 @@ export async function GET(req: Request,{params}:{params: {postId:string}}) {
         },
         include:{
           author: true,
-          likes: true
         }
       })
       

@@ -72,14 +72,23 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
           if(index === posts.length - 1){
             return (
               <div key={post.id} ref={ref}>
-                <Post id={post.id} title={post.title} imageUrl={post.imageUrl} author={post.author}/>
+                <Post 
+                  id={post.id} 
+                  title={post.title} 
+                  imageUrl={post.imageUrl} 
+                  author={post.author}/>
               </div>
             )
           }
           else{
             return (
               <div key={post.id}>
-                <Post id={post.id} title={post.title} imageUrl={post.imageUrl} author={post.author}/>
+                <Post 
+                  id={post.id} 
+                  title={post.title} 
+                  imageUrl={post.imageUrl} 
+                  author={post.author}
+                  />
               </div>
             )
           }

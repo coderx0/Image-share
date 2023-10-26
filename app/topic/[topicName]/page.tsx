@@ -22,7 +22,7 @@ const TopicPage = async({
         include:{
             posts:{
                 include:{
-                    author: true
+                    author: true,
                 },
                 take: INITIAL_POST_NUMBER
             }

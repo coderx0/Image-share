@@ -22,7 +22,6 @@ const Page = async ({params}:Props) => {
     },
     include: {
       author: true,
-      likes: true
     }
   });
 
@@ -37,7 +36,6 @@ const Page = async ({params}:Props) => {
         imageId={post.id}
         imageUrl={post.imageUrl}
         author={post.author}
-        likes={post.likes}
       />
   )
 }

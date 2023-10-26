@@ -39,7 +39,6 @@ const PageModal = ({post}: Props) => {
           imageId={post.id}
           imageUrl={post.imageUrl}
           author={post.author}
-          likes={post.likes}
           />
       </div>
     </div>
