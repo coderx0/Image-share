@@ -14,8 +14,6 @@ export async function GET(req: Request) {
         }
     })
     
-    console.log({userLikes});
-
     return new Response(JSON.stringify({userLikes}))
   } catch (error) {
     return new Response('Could not fetch posuser likes', { status: 500 })

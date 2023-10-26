@@ -41,7 +41,7 @@ const ExplorePage = async () => {
                         </div>
                       ))
                     }
-                    <Link href={`/topic/${topic.name}`}>
+                    <Link href={`/topic/${topic.name}`} prefetch>
                     <div className='w-[350px] h-[350px] rounded-lg flex justify-center items-center group cursor-pointer bg-base-300 hover:bg-base-200 transition-background duration-100'>
                       <span className='text-3xl font-semibold group-hover:scale-110 transtion-transform duration-100 text-base-content'>Visit More</span>
                     </div>

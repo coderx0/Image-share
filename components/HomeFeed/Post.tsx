@@ -28,7 +28,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
           )
           :
           (
-        <button className='btn rounded-lg p-2 px-3 bg-base-100'>
+        <button className='btn rounded-lg p-2 px-3 bg-base-100' onClick={()=>router.push("/sign-in")}>
           <Heart/>
         </button>
           )
@@ -63,7 +63,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
           <Image
             alt={title}
             src={imageUrl}
-            className='z-1'
+            className='z-1 rounded-none'
           />
       </div>
     </Link>
