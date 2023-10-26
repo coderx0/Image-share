@@ -3,7 +3,7 @@
 import {  User  } from '@prisma/client'
 import { Bookmark, Download, Heart, Share2, User as UserIcon } from 'lucide-react'
 import React from 'react'
-import PostLike from './PostLike'
+// import PostLike from './PostLike'
 import CollectPost from '../CollectPost'
 import PostAuthor from './PostAuthor'
 import { useSession } from 'next-auth/react'
@@ -39,7 +39,7 @@ const PostDetails = ({
                     )
                 }
                 
-                <PostLike postId={postId}/>
+                {/* <PostLike postId={postId}/> */}
                 <button className='btn rounded-md md:hidden'>
                 <Share2/>
                 </button>
