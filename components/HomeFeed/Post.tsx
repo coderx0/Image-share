@@ -2,11 +2,11 @@ import React from 'react'
 import {Avatar, Image} from "@nextui-org/react";
 import { Bookmark, Download, Heart } from 'lucide-react';
 import Link from 'next/link';
-import { Like, User } from '@prisma/client';
+import {  User } from '@prisma/client';
 import CollectPost from '../CollectPost';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-// import PostLike from '../PostDetails/PostLike';
+import PostLike from '../PostDetails/PostLike';
 
 interface Props {
     title: string,
@@ -22,7 +22,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
   return (
       <div className='group relative'>
       <div className='absolute top-0 z-20 left-0 hidden group-hover:flex gap-2 w-full justify-end p-2'>
-        {/* {
+        {
           session ? (
             <PostLike postId={id}/>
           )
@@ -32,7 +32,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
           <Heart/>
         </button>
           )
-        } */}
+        }
         {
           session? (
             <CollectPost postId={id}/>
