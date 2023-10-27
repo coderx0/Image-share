@@ -7,6 +7,7 @@ import CollectPost from '../CollectPost';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import PostLike from '../PostDetails/PostLike';
+import FileSaver from 'file-saver';
 
 interface Props {
     title: string,
@@ -54,7 +55,9 @@ const Post = ({title, imageUrl,id,author}: Props) => {
             </span>
           </div>
         </Link>
-        <button className='btn rounded-lg p-2 px-3 bg-base-100'>
+        <button
+         onClick={()=>FileSaver.saveAs(imageUrl,`${title}.jpg`)}
+         className='btn rounded-lg p-2 px-3 bg-base-100'>
           <Download/>
         </button>
       </div>

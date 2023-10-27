@@ -8,7 +8,7 @@ import CollectPost from '../CollectPost'
 import PostAuthor from './PostAuthor'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
-
+import FileSaver from "file-saver"
 interface Props {
     title: string,
     imageUrl: string,
@@ -53,7 +53,9 @@ const PostDetails = ({
                 <Share2/>
                 </button>
                 <div className='flex flex-1 justify-end'>
-                <button className='btn btn-primary rounded-md'>
+                <button
+                onClick={()=>FileSaver.saveAs(imageUrl,`${title}.jpg`)} 
+                className='btn btn-primary rounded-md'>
                     <Download/>
                     <span className='hidden md:block'>
                         Download
