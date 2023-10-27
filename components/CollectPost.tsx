@@ -76,7 +76,6 @@ const CollectPost = ({postId}: {postId: string}) => {
           reset();
           setOpenCollectionForm(false);
   
-        //   location.assign(`${process.env.NEXT_PUBLIC_CLIENT_URL}/photo/${data.postId}`)
           return;
         },
     })

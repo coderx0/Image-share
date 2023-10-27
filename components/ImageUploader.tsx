@@ -112,7 +112,6 @@ const ImageUploader = () => {
 
         router.push(`/user/${session?.user.id}`)
 
-        // location.assign(`${process.env.NEXT_PUBLIC_CLIENT_URL}/photo/${data.postId}`)
         return;
       },
     })

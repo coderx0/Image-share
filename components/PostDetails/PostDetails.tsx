@@ -1,7 +1,7 @@
 "use client"
 
 import {  User  } from '@prisma/client'
-import { Bookmark, Download, Heart, Share2, User as UserIcon } from 'lucide-react'
+import { Bookmark, Download, Heart, User as UserIcon } from 'lucide-react'
 import React from 'react'
 import PostLike from './PostLike'
 import CollectPost from '../CollectPost'
@@ -9,6 +9,7 @@ import PostAuthor from './PostAuthor'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import FileSaver from "file-saver"
+import SharePost from './SharePost'
 interface Props {
     title: string,
     imageUrl: string,
@@ -49,9 +50,7 @@ const PostDetails = ({
                     )
                 }
                 
-                <button className='btn rounded-md md:hidden'>
-                <Share2/>
-                </button>
+                <SharePost imageId={imageId}/>
                 <div className='flex flex-1 justify-end'>
                 <button
                 onClick={()=>FileSaver.saveAs(imageUrl,`${title}.jpg`)} 
@@ -73,12 +72,9 @@ const PostDetails = ({
                 
                 <PostAuthor author={author}/>
             </div>
-        <div className='hidden md:flex justify-end mt-4'>
-            <button className='btn rounded-md'>
-                <Share2/>
-                <span>Share</span>
-            </button>
-        </div>
+        {/* <div className='hidden md:flex justify-end mt-4'>
+            <SharePost imageId={imageId}/>
+        </div> */}
     </div>
     </>
   )

@@ -61,7 +61,6 @@ const page: FC<pageProps> = ({}) => {
         password: password,
       });
 
-      // location.assign(`${process.env.NEXT_PUBLIC_CLIENT_URL}/photo/${data.postId}`)
       return;
     },
   })
