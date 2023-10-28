@@ -1,6 +1,6 @@
 export function transformCloudinaryURL(inputURL:string, width = 500) {
     if (!inputURL.startsWith("https://res.cloudinary.com/calmbit/image/upload/")) {
-      return "Invalid input URL";
+      return null;
     }
   
     // Split the URL into parts

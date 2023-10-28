@@ -2,7 +2,7 @@
 
 import {  User  } from '@prisma/client'
 import { Bookmark, Download, Heart, User as UserIcon } from 'lucide-react'
-import React from 'react'
+import React, { useState } from 'react'
 import PostLike from './PostLike'
 import CollectPost from '../CollectPost'
 import PostAuthor from './PostAuthor'
@@ -10,6 +10,7 @@ import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import FileSaver from "file-saver"
 import SharePost from './SharePost'
+import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL'
 interface Props {
     title: string,
     imageUrl: string,
@@ -22,6 +23,9 @@ const PostDetails = ({
     title, imageUrl, imageId, author,postId
 }: Props) => {
     const {data: session} = useSession()
+    const [isHQ,setIsHQ] =  useState(false);
+    const finalImgURL = isHQ ? imageUrl : transformCloudinaryURL(imageUrl) || '';
+
   return (
     <>
         <div className='p-2 md:p-6'>
@@ -65,16 +69,19 @@ const PostDetails = ({
         </div>
         <div className='flex justify-center mt-4'>
             <div className='max-h-[550px] flex justify-center'>
-                <img src={imageUrl} className='h-full w-auto object-contain'/>
+                <img src={finalImgURL} className='h-full w-auto object-contain'/>
             </div>
         </div>
         <div className='flex md:hidden flex-1 gap-2 items-center mt-4'>
                 
                 <PostAuthor author={author}/>
             </div>
-        {/* <div className='hidden md:flex justify-end mt-4'>
-            <SharePost imageId={imageId}/>
-        </div> */}
+        <div className='flex justify-end'>
+            <button className={`btn btn-sm ${isHQ?'bg-primary':'bg-accent'}`} 
+            onClick={()=>setIsHQ(prev=>!prev)}>
+                HQ
+            </button>
+        </div>
     </div>
     </>
   )

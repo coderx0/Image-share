@@ -1,4 +1,5 @@
 import { db } from '@/lib/db'
+import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL'
 import { Image } from 'lucide-react'
 import React from 'react'
 
@@ -42,21 +43,12 @@ const UserCollectionsPage = async({params} :{
                 (
                   <div className='w-full rounded-xl flex gap-2'>
                     {collection.posts.map((post,idx)=>{
-                      if(collection.posts.length<3){
                         return (
                           <div key={post.id} className={`h-72 flex-1`}>
-                            <img src={post.imageUrl} alt={post.title} className='w-full h-full object-cover rounded-xl'/>
+                            <img src={transformCloudinaryURL(post.imageUrl) || ''} alt={post.title} className='w-full h-full object-cover rounded-xl'/>
                           </div>
                         )
-                      }else{
-                        return (
-                          <div key={post.id} className={`h-72 flex-1`}>
-                            <img src={post.imageUrl} alt={post.title} className='w-full h-full object-cover rounded-xl'/>
-                          </div>
-                        )
-                      }
                     })}
-                    
                   </div>
                 )
                 :

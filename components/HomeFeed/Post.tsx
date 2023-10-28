@@ -42,7 +42,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
   const {data: session} = useSession();
   const router = useRouter();
 
-  const imgURL = transformCloudinaryURL(imageUrl);
+  const imgURL = transformCloudinaryURL(imageUrl) || '';
   return (
       <div className='group relative'>
       <div className='absolute top-0 z-20 left-0 hidden group-hover:flex gap-2 w-full justify-end p-2'>
@@ -72,7 +72,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
       <div className='absolute bottom-0 z-20 left-0 bg-gradient-to-t from-[#2d3436] to-transparent hidden group-hover:flex gap-2 w-full justify-between p-2'>
         <Link href={`/user/${author.id}`}>
           <div className='flex items-center gap-2 text-white'>
-            <Avatar showFallback name={author.name!} src={transformCloudinaryURL(author.image || '')}/>
+            <Avatar showFallback name={author.name!} src={transformCloudinaryURL(author.image || '') || ''}/>
             <span className=''>
               {author.name}
             </span>

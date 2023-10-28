@@ -33,7 +33,7 @@ const EditProfilePage = async ({params}:{
   return (
     <EditProfile 
         userId={params.userId} 
-        userName={userDetails.username || ''}
+        userName={userDetails.name || ''}
         bio={userDetails.bio || ''}
     />
   )

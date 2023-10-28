@@ -1,6 +1,7 @@
 import FollowUser from '@/components/FollowUser';
 import UserContentSelector from '@/components/UserContentSelector';
 import { db } from '@/lib/db';
+import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL';
 import { User } from 'lucide-react';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';
@@ -46,9 +47,9 @@ const layout = async ({children,params}:Props) => {
     <div className='flex flex-col'>
         <div className='flex flex-col items-center gap-4 justify-center pt-16'>
             {
-                userDetails.image?(
+                userDetails.image?.includes('cloudinary')?(
                     <div className='h-28 w-28'>
-                        <img src={userDetails.image} className='object-cover rounded-full'/>
+                        <img src={transformCloudinaryURL(userDetails.image) || ''} className='object-cover rounded-full'/>
                     </div>
                 )
                 :

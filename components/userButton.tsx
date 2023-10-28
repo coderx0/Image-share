@@ -28,10 +28,10 @@ const UserButton = ({session,setIsChecked}: {session: Session | null,setIsChecke
           <Dropdown className='bg-base-100 text-base-content'>
           <DropdownTrigger>
           {
-            session.user.image ? (
+            session.user.image?.includes("cloudinary") ? (
               <div className="avatar p-0 rounded-full">
               <div className="w-10 rounded-full">
-                <img src={transformCloudinaryURL(session.user.image)} alt={`${session.user.name}_image`}/>
+                <img src={transformCloudinaryURL(session.user.image) || ''} alt={`${session.user.name}_image`}/>
               </div>
             </div>
             ):(

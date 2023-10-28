@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL';
+import { User } from 'lucide-react';
 
 type FormData = z.infer<typeof ProfileDetailsValidator>
 
@@ -45,7 +46,6 @@ const EditProfile = ({userId,userName,bio}:Props) => {
 
     const authorImage = transformCloudinaryURL(session?.user.image || '');
     
-    console.log(authorImage)
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors },setValue, reset} = useForm<FormData>({
@@ -146,15 +146,23 @@ const EditProfile = ({userId,userName,bio}:Props) => {
     const submitProfileDetails = (data: FormData)=>{
         updateProfileDetails(data)
     }
-
+console.log(authorImage)
   return (
     <div className='p-4 flex flex-col items-center'>
         <h3 className='text-3xl font-semibold mt-6'>
             Profile Settings 
         </h3>
         <div className='flex items-center gap-4 mt-8 bg-base-200 p-4 rounded-xl w-full md:w-[80%] max-w-[800px]'>
-            <div className='h-24 w-24'>
+            <div className='h-24 w-24 flex justify-center items-center'>
+              {
+                authorImage ? 
+                (
                 <img src={authorImage} alt={session?.user.name!} className='h-full w-full object-cover rounded-full'/>
+                )
+                :(
+                  <User className='w-10 h-10 border-2 border-base-300 rounded-full'/>
+                )
+              }
             </div>
             {
                 isLoading ? (

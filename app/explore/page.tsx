@@ -1,4 +1,5 @@
 import { db } from '@/lib/db'
+import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL'
 import Link from 'next/link'
 import React from 'react'
 
@@ -37,7 +38,7 @@ const ExplorePage = async () => {
                     {
                       topic.posts.map(post=>(
                         <div key={post.id} className='w-[350px] h-[350px]'>
-                          <img src={post.imageUrl} className='object-cover w-full h-full'/>
+                          <img src={transformCloudinaryURL(post.imageUrl) || ''} className='object-cover w-full h-full'/>
                         </div>
                       ))
                     }
