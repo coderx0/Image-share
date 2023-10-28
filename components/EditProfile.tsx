@@ -119,7 +119,6 @@ const EditProfile = ({userId,userName,bio}:Props) => {
           }
           if (file.type.startsWith('image/')) {
             setIsLoading(true);
-            // const [res] = await uploadFiles({endpoint:'imageUploader',files:[file]})
             let imageUrl='';
             const imageData = new FormData();
             imageData.set("file", file);
@@ -130,7 +129,6 @@ const EditProfile = ({userId,userName,bio}:Props) => {
                 }
               })
               imageUrl = data.imageUrl;
-              console.log(imageUrl);
             }
             catch(error){
               toast.error("Image upload failed");
@@ -146,7 +144,6 @@ const EditProfile = ({userId,userName,bio}:Props) => {
     const submitProfileDetails = (data: FormData)=>{
         updateProfileDetails(data)
     }
-console.log(authorImage)
   return (
     <div className='p-4 flex flex-col items-center'>
         <h3 className='text-3xl font-semibold mt-6'>

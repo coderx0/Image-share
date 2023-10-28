@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react'
 import { Trash2, UploadCloud } from 'lucide-react'
-import { uploadFiles } from '@/lib/uploadthing';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -137,8 +136,6 @@ const ImageUploader = () => {
             toast.error("Image upload failed");
           }
 
-          // const [res] = await uploadFiles({endpoint:'imageUploader',files:[imageFile]})
-          // url = res.url;
       }
 
       const payload: PostCreationRequest = {
