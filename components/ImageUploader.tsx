@@ -117,17 +117,33 @@ const ImageUploader = () => {
     })
 
     const onSubmit = async (data: FormData)=>{
-      let url = '';
+      // let url = '';
+      let imageUrl = '';
 
       if(imageFile){
           setIsLoading(true);
-          const [res] = await uploadFiles({endpoint:'imageUploader',files:[imageFile]})
-          url = res.url;
+          const imageData = new FormData();
+          imageData.set("file", imageFile);
+ 
+          try{
+            const {data} = await axios.post('/api/upload',imageData,{
+              headers:{
+                'Content-Type':'multipart/form-data'
+              }
+            })
+            imageUrl = data.imageUrl;
+          }
+          catch(error){
+            toast.error("Image upload failed");
+          }
+
+          // const [res] = await uploadFiles({endpoint:'imageUploader',files:[imageFile]})
+          // url = res.url;
       }
 
       const payload: PostCreationRequest = {
         title: data.title,
-        imageUrl: url,
+        imageUrl: imageUrl,
         tags: data.tags
       }
 

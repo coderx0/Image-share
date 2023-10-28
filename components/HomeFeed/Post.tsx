@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import PostLike from '../PostDetails/PostLike';
 import FileSaver from 'file-saver';
+import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL';
 
 interface Props {
     title: string,
@@ -16,10 +17,32 @@ interface Props {
     author: User,
 }
 
+// function transformCloudinaryURL(inputURL:string, width = 500) {
+//   // Check if the input URL is in the expected format
+//   if (!inputURL.startsWith("http://res.cloudinary.com/calmbit/image/upload/")) {
+//     return "Invalid input URL";
+//   }
+
+//   // Split the URL into parts
+//   const parts = inputURL.split("/");
+
+//   // Extract the necessary components
+//   const cloudName = parts[3];
+//   const publicID = parts[parts.length - 1];
+//   const version = parts[parts.length - 2];
+
+//   // Construct the transformed URL
+//   const transformedURL = `https://res.cloudinary.com/${cloudName}/image/upload/c_scale,w_${width}/f_auto/q_auto/${version}/${publicID}`;
+
+//   return transformedURL;
+// }
+
+
 const Post = ({title, imageUrl,id,author}: Props) => {
   const {data: session} = useSession();
   const router = useRouter();
 
+  const imgURL = transformCloudinaryURL(imageUrl);
   return (
       <div className='group relative'>
       <div className='absolute top-0 z-20 left-0 hidden group-hover:flex gap-2 w-full justify-end p-2'>
@@ -49,7 +72,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
       <div className='absolute bottom-0 z-20 left-0 bg-gradient-to-t from-[#2d3436] to-transparent hidden group-hover:flex gap-2 w-full justify-between p-2'>
         <Link href={`/user/${author.id}`}>
           <div className='flex items-center gap-2 text-white'>
-            <Avatar showFallback name={author.name!} src={author.image!}/>
+            <Avatar showFallback name={author.name!} src={transformCloudinaryURL(author.image || '')}/>
             <span className=''>
               {author.name}
             </span>
@@ -65,7 +88,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
       <div className='max-w-[500px]'>
           <Image
             alt={title}
-            src={imageUrl}
+            src={imgURL}
             className='z-1 rounded-none'
           />
       </div>

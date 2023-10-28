@@ -27,7 +27,6 @@ const page:FC<Props> = async ({params}) => {
         author: true,
       }
     });
-    console.log('from db');
   }
 
   if(!post){

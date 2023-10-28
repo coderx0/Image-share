@@ -7,6 +7,7 @@ import {Avatar,Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} fr
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction } from 'react';
+import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL';
 
 const UserButton = ({session,setIsChecked}: {session: Session | null,setIsChecked: Dispatch<SetStateAction<boolean>>}) => {
   const router  = useRouter();
@@ -30,7 +31,7 @@ const UserButton = ({session,setIsChecked}: {session: Session | null,setIsChecke
             session.user.image ? (
               <div className="avatar p-0 rounded-full">
               <div className="w-10 rounded-full">
-                <img src={session.user.image} alt={`${session.user.name}_image`}/>
+                <img src={transformCloudinaryURL(session.user.image)} alt={`${session.user.name}_image`}/>
               </div>
             </div>
             ):(

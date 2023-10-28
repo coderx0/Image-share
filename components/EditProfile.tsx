@@ -1,6 +1,5 @@
 "use client"
 
-import { uploadFiles } from '@/lib/uploadthing';
 import { ProfileDetailsUpdateRequest, ProfileDetailsValidator, ProfileImageUpdateRequest } from '@/lib/validators/profile';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
@@ -10,6 +9,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL';
 
 type FormData = z.infer<typeof ProfileDetailsValidator>
 
@@ -19,9 +19,33 @@ interface Props{
   bio: string,
 }
 
+// function transformCloudinaryURL(inputURL:string, width = 500) {
+//   // Check if the input URL is in the expected format
+//   if (!inputURL.startsWith("https://res.cloudinary.com/calmbit/image/upload/")) {
+//     return "Invalid input URL";
+//   }
+
+//   // Split the URL into parts
+//   const parts = inputURL.split("/");
+
+//   // Extract the necessary components
+//   const cloudName = parts[3];
+//   const publicID = parts[parts.length - 1];
+//   const version = parts[parts.length - 2];
+
+//   // Construct the transformed URL
+//   const transformedURL = `https://res.cloudinary.com/${cloudName}/image/upload/c_scale,w_${width}/f_auto/q_auto/${version}/${publicID}`;
+
+//   return transformedURL;
+// }
+
+
 const EditProfile = ({userId,userName,bio}:Props) => {
     const {data: session } = useSession();
+
+    const authorImage = transformCloudinaryURL(session?.user.image || '');
     
+    console.log(authorImage)
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { register, handleSubmit, formState: { errors },setValue, reset} = useForm<FormData>({
@@ -95,8 +119,23 @@ const EditProfile = ({userId,userName,bio}:Props) => {
           }
           if (file.type.startsWith('image/')) {
             setIsLoading(true);
-            const [res] = await uploadFiles({endpoint:'imageUploader',files:[file]})
-            updateProfileImage({imageUrl:res.url});
+            // const [res] = await uploadFiles({endpoint:'imageUploader',files:[file]})
+            let imageUrl='';
+            const imageData = new FormData();
+            imageData.set("file", file);
+            try{
+              const {data} = await axios.post('/api/upload',imageData,{
+                headers:{
+                  'Content-Type':'multipart/form-data'
+                }
+              })
+              imageUrl = data.imageUrl;
+              console.log(imageUrl);
+            }
+            catch(error){
+              toast.error("Image upload failed");
+            }
+            updateProfileImage({imageUrl});
 
           } else {
             toast.error('Please select a valid image file (e.g., JPG, JPEG, PNG, GIF).');
@@ -115,7 +154,7 @@ const EditProfile = ({userId,userName,bio}:Props) => {
         </h3>
         <div className='flex items-center gap-4 mt-8 bg-base-200 p-4 rounded-xl w-full md:w-[80%] max-w-[800px]'>
             <div className='h-24 w-24'>
-                <img src={session?.user.image!} alt={session?.user.name!} className='h-full w-full object-cover rounded-full'/>
+                <img src={authorImage} alt={session?.user.name!} className='h-full w-full object-cover rounded-full'/>
             </div>
             {
                 isLoading ? (

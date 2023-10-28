@@ -35,7 +35,7 @@ const page = async ({params}: Props) => {
   }
 
   return (
-    <PostFeed initialPosts={posts} endpoint={`/search/${params.searchParam}`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
+    <PostFeed initialPosts={posts.reverse()} endpoint={`/search/${params.searchParam}`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
   )
 }
 

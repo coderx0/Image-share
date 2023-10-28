@@ -13,7 +13,7 @@ function isValidImageUrl(url:string) {
       return false;
       }
       
-      const prefix = "https://utfs.io/f/";
+      const prefix = "https://res.cloudinary.com/calmbit/image/upload/";
     
     const startsWithPrefix = url.startsWith(prefix);
       
@@ -22,7 +22,7 @@ function isValidImageUrl(url:string) {
       }
     
       return true;
-  }
+}
   
 
 export async function POST(req: Request) {
