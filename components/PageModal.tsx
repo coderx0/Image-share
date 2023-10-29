@@ -26,13 +26,20 @@ const PageModal = ({post}: Props) => {
      onClick={()=>{
       router.back();
      }}
-     className='backdrop-brightness-[0.2] fixed top-0 left-0 w-[100vw] h-[100vh] z-40 flex justify-center items-center text-base-content'>
-      <button className='absolute btn btn-circle top-0 md:right-[30px] border-2 border-red-400'>
-        <X/>
-      </button>
+     className='backdrop-brightness-[0.2] fixed top-0 left-0 w-[100vw] h-[100vh] z-40 text-base-content overflow-auto'>
+      
+      <div className='w-full flex justify-center'>
+        
       <div
       onClick={e=>e.stopPropagation()}
-       className='bg-base-100 pb-4 md:p-4 rounded-lg md:w-[1200px]'>
+      className='relative bg-base-100 pb-4 md:p-4 rounded-lg mt-16 md:mt-8 sm:w-[95%] md:w-[90%] max-w-[1200px]'>
+        <button
+        onClick={()=>{
+          router.back();
+        }}
+        className='absolute btn btn-circle md:btn-lg -top-[50px] left-[10px] md:-top-[20px] md:-left-[20px]'>
+          <X strokeWidth={4}/>
+        </button>
         <PostDetails 
           postId={post.id}
           title={post.title}
@@ -40,6 +47,7 @@ const PageModal = ({post}: Props) => {
           imageUrl={post.imageUrl}
           author={post.author}
           />
+      </div>
       </div>
     </div>
     </>

@@ -50,7 +50,7 @@ const SharePost = ({imageId}:{imageId: string}) => {
 
     return (
     <>
-        <button onClick={onOpen} className='btn rounded-md'>
+        <button onClick={onOpen} className='btn rounded-md rounded-l-none md:rounded-none p-3 hover:bg-primary hover:text-primary-800'>
             <Share2/>
         </button>
 

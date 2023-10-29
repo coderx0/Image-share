@@ -48,28 +48,28 @@ const Post = ({title, imageUrl,id,author}: Props) => {
       <div className='absolute top-0 z-20 left-0 hidden group-hover:flex gap-2 w-full justify-end p-2'>
         {
           session ? (
-            <PostLike postId={id}/>
+            <PostLike postId={id} style='h-10 w-10'/>
           )
           :
           (
-        <button className='btn rounded-lg p-2 px-3 bg-base-100' onClick={()=>router.push("/sign-in")}>
+        <button className='bg-base-200 flex justify-center items-center rounded-md h-10 w-10' onClick={()=>router.push("/sign-in")}>
           <Heart/>
         </button>
           )
         }
         {
           session? (
-            <CollectPost postId={id}/>
+            <CollectPost postId={id} style='h-10 w-10'/>
           )
           :
           (
-            <button className='btn rounded-lg p-2 px-3 bg-base-100' onClick={()=>router.push("/sign-in")}>
+            <button className='bg-base-200 flex justify-center items-center rounded-md h-10 w-10' onClick={()=>router.push("/sign-in")}>
               <Bookmark/>
             </button>
           )
         }
       </div>
-      <div className='absolute bottom-0 z-20 left-0 bg-gradient-to-t from-[#2d3436] to-transparent hidden group-hover:flex gap-2 w-full justify-between p-2'>
+      <div className='absolute bottom-0 z-20 left-0 bg-gradient-to-t from-[#2d3436] to-transparent hidden group-hover:flex gap-2 w-full justify-between p-2 rounded-xl'>
         <Link href={`/user/${author.id}`}>
           <div className='flex items-center gap-2 text-white'>
             <Avatar showFallback name={author.name!} src={transformCloudinaryURL(author.image || '') || ''}/>
@@ -80,7 +80,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
         </Link>
         <button
          onClick={()=>FileSaver.saveAs(imageUrl,`${title}.jpg`)}
-         className='btn rounded-lg p-2 px-3 bg-base-100'>
+         className='bg-base-200 flex justify-center items-center rounded-md h-10 w-10'>
           <Download/>
         </button>
       </div>
@@ -89,7 +89,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
           <Image
             alt={title}
             src={imgURL}
-            className='z-1 rounded-none'
+            className='z-1'
           />
       </div>
     </Link>

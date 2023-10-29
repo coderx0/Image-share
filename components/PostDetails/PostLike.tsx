@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { Like } from '@prisma/client'
 import { Heart } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useMutation, useQuery } from '@tanstack/react-query'
@@ -11,14 +10,15 @@ import { useRouter } from 'next/navigation'
 import { PostLikeRequest } from '@/lib/validators/like'
 
 interface Props{
-    postId: string
+    postId: string,
+    style: string
 }
 
 type LikeType = {
     likeType: 'LIKE' | 'UNLIKE',
 }
 
-const PostLike = ({postId}: Props) => {
+const PostLike = ({postId,style}: Props) => {
     const {data: session} = useSession();
     const [liked, setLiked] = useState<boolean>(false);
     const router = useRouter();
@@ -86,7 +86,7 @@ const PostLike = ({postId}: Props) => {
       }
 
   return (
-    <button className={`btn rounded-md`} onClick={likeHandler}>
+    <button className={`bg-base-200 flex justify-center items-center rounded-md hover:bg-primary hover:text-primary-800 ${style}`} onClick={likeHandler}>
         {
             liked? <Heart fill='pink' stroke='pink'/>:<Heart/>
         }

@@ -33,12 +33,12 @@ const PostDetails = ({
             <div className='hidden md:flex flex-1 gap-2 items-start'>
                 <PostAuthor author={author}/>
             </div>
-            <div className='flex gap-2 w-full md:w-fit'>
+            <div className='flex w-full md:w-fit'>
                 {
                     session ? (
-                    <CollectPost postId={postId}/>
+                    <CollectPost postId={postId} style='h-12 w-12 rounded-r-none'/>
                     ):(
-                        <Link href='/sign-in' className='btn rounded-lg p-2 px-3 bg-base-200'>
+                        <Link href='/sign-in' className='btn rounded-md rounded-r-none p-2 px-3 bg-base-200'>
                             <Bookmark/>
                         </Link>
                     )
@@ -46,19 +46,19 @@ const PostDetails = ({
 
                 {
                     session ? (
-                    <PostLike postId={postId}/>
+                    <PostLike postId={postId} style='h-12 w-12 rounded-none'/>
                     ):(
-                        <Link href='/sign-in' className='btn rounded-lg p-2 px-3 bg-base-200'>
+                        <Link href='/sign-in' className='btn rounded-none p-2 px-3 bg-base-200'>
                             <Heart/>
                         </Link>
                     )
                 }
                 
                 <SharePost imageId={imageId}/>
-                <div className='flex flex-1 justify-end'>
+                <div className='flex flex-1 justify-end rounded-none'>
                 <button
                 onClick={()=>FileSaver.saveAs(imageUrl,`${title}.jpg`)} 
-                className='btn btn-primary rounded-md'>
+                className='btn rounded-md md:rounded-l-none hover:bg-primary hover:text-primary-800'>
                     <Download/>
                     <span className='hidden md:block'>
                         Download
@@ -67,7 +67,7 @@ const PostDetails = ({
                 </div>
             </div>
         </div>
-        <div className='flex justify-center mt-4'>
+        <div className='flex justify-center mt-4 bg-base-100'>
             <div className='max-h-[550px] flex justify-center'>
                 <img src={finalImgURL} className='h-full w-auto object-contain'/>
             </div>
@@ -76,7 +76,7 @@ const PostDetails = ({
                 
                 <PostAuthor author={author}/>
             </div>
-        <div className='flex justify-end'>
+        <div className='flex justify-end mt-6'>
             <button className={`btn btn-sm ${isHQ?'bg-primary':'bg-accent'}`} 
             onClick={()=>setIsHQ(prev=>!prev)}>
                 HQ
