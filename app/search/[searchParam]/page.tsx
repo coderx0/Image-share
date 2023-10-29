@@ -14,19 +14,36 @@ interface Props {
 
 const page = async ({params}: Props) => {
 
-  const posts = await db.post.findMany({
+  const postsOfTag = await db.tag.findFirst({
     where:{
-      title:{
-        startsWith: params.searchParam
-      },
+      name: {
+        startsWith: params.searchParam,
+      }
     },
     include:{
-      author: true
-    },
-    take: INITIAL_POST_NUMBER
+      posts:{
+        include: {
+          author: true
+        },
+        take: INITIAL_POST_NUMBER
+      }
+    }
   })
 
-  if(posts.length === 0){
+
+  // const posts = await db.post.findMany({
+  //   where:{
+  //     title:{
+  //       startsWith: params.searchParam
+  //     },
+  //   },
+  //   include:{
+  //     author: true
+  //   },
+  //   take: INITIAL_POST_NUMBER
+  // })
+
+  if(!postsOfTag){
     return (
       <div>
         No Result Found
@@ -35,7 +52,7 @@ const page = async ({params}: Props) => {
   }
 
   return (
-    <PostFeed initialPosts={posts.reverse()} endpoint={`/search/${params.searchParam}`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
+    <PostFeed initialPosts={postsOfTag.posts.reverse()} endpoint={`/search/${params.searchParam}`} shouldFetchNext={postsOfTag.posts.length === INITIAL_POST_NUMBER}/>
   )
 }
 

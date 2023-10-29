@@ -29,7 +29,7 @@ export default function RootLayout({
         'antialiased ',
         inter.className
       )}
-      data-theme="luxury"
+      data-theme="forest"
       >
       <body className='min-h-screen antialiased bg-base-100'>
         <Providers>

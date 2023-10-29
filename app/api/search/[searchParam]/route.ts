@@ -17,24 +17,48 @@ export async function GET(req: Request,
         page: url.searchParams.get('page'),
       })
 
-
-    const posts = await db.post.findMany({
+      const postOfTag = await db.tag.findFirst({
         where:{
-            title:{
-                startsWith: params.searchParam
-            }
+          name:{
+            startsWith: params.searchParam
+          }
         },
-      take: parseInt(limit),
-      skip: (parseInt(page) - 1) * parseInt(limit), // skip should start from 0 for page 1
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        author: true,
-      },
-    })
+        include:{
+          posts:{
+            include:{
+              author: true
+            },
+            take: parseInt(limit),
+            skip: (parseInt(page) - 1) * parseInt(limit), // skip should start from 0 for page 1
+            orderBy: {
+              createdAt: 'desc',
+            },
+          },
+        }
+      })
 
-    return new Response(JSON.stringify(posts))
+
+    // const posts = await db.post.findMany({
+    //     where:{
+    //         title:{
+    //             startsWith: params.searchParam
+    //         }
+    //     },
+    //   take: parseInt(limit),
+    //   skip: (parseInt(page) - 1) * parseInt(limit), // skip should start from 0 for page 1
+    //   orderBy: {
+    //     createdAt: 'desc',
+    //   },
+    //   include: {
+    //     author: true,
+    //   },
+    // })
+
+    if(!postOfTag){
+      return new Response("No results found");
+    }
+
+    return new Response(JSON.stringify(postOfTag.posts))
   } catch (error) {
     return new Response('Could not fetch posts', { status: 500 })
   }
