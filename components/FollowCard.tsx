@@ -17,8 +17,8 @@ const FollowCard = ({follower}:{follower: User}) => {
                 <Avatar name={follower.name!} size='lg'/>
                 }
             </div>
-            <div className='flex flex-1 flex-col bg-primary rounded-b-xl'>
-                <h4 className='text-primary-content text-center mt-8'>
+            <div className='flex flex-1 flex-col bg-neutral text-base-content rounded-b-xl'>
+                <h4 className='text-center mt-8'>
                     {follower.name}
                 </h4>
                 <div className='flex justify-center mt-4'>

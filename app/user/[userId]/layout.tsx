@@ -70,7 +70,7 @@ const layout = async ({children,params}:Props) => {
                 )
                 :
                 (
-                    <FollowUser followers={userDetails.followers} userId={userDetails.id}/>
+                    <FollowUser userId={userDetails.id} style=''/>
                 )
             }
             <div className='flex gap-4 items-center'>

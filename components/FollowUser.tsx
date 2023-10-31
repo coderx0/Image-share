@@ -2,16 +2,16 @@
 
 import { UserFollowRequest } from '@/lib/validators/follow'
 import { Follow } from '@prisma/client'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 interface Props {
-    followers: Follow[],
-    userId: string
+    userId: string,
+    style: string
 }
 
 type FollowType = {
@@ -19,18 +19,30 @@ type FollowType = {
 }
 
 
-const FollowUser = ({followers,userId}: Props) => {
+const FollowUser = ({userId, style}: Props) => {
     const {data: session} = useSession();
-
     const [followed, setFollowed] = useState<boolean>(false);
     const router = useRouter();
 
+    const fetchUserFollowing = useCallback(async ()=>{
+      try{
+          const response = await axios.get('/api/user/followings')
+          return response.data.userFollowings;
+      }
+      catch(err){
+          toast.error("Unable to fetch Likes")
+      }
+  },[session?.user.id]);
+
+  
+  const {data,isLoading,refetch} = useQuery(['user_following'],fetchUserFollowing)
+
     useEffect(()=>{
-      if(session?.user.id){
-        const isFollowed = !!followers.find(follower=>(follower.followerId === session.user.id));
+      if(session?.user.id && data){
+        const isFollowed = !!data.find((follower:any)=>(follower.followerId === session.user.id));
         setFollowed(isFollowed)
       }
-    },[followers,session?.user.id])
+    },[data,session?.user.id])
 
     const { mutate: followUser } = useMutation({
         mutationFn: async ({
@@ -50,8 +62,7 @@ const FollowUser = ({followers,userId}: Props) => {
           // const newPathname = pathname.split('/').slice(0, -1).join('/')
           // router.push(newPathname)
 
-          console.log('OK')
-    
+          refetch();
           // router.refresh()
     
         //   return toast.success('Success',{
@@ -75,8 +86,14 @@ const FollowUser = ({followers,userId}: Props) => {
         }
       }
 
+      if(isLoading){
+        return (
+          <button className={`btn ${style} invisible`}>
+          </button>
+        );
+      }
   return (
-    <button className={`btn rounded-md ${!followed && 'btn-primary'}`} onClick={followHandler}>
+    <button className={`btn ${style} ${followed && 'btn-primary'} `} onClick={followHandler}>
         {
             followed? 'Following':'Follow'
         }

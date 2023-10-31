@@ -33,7 +33,7 @@ const PostLike = ({postId,style}: Props) => {
       }
   },[session?.user.id]);
 
-  const {data, isLoading: collectionLoading,refetch} = useQuery(['user_likes'],fetchUserLikes)
+  const {data, isLoading,refetch} = useQuery(['user_likes'],fetchUserLikes)
   
 
   useEffect(()=>{
