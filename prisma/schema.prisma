@@ -68,6 +68,8 @@ model User {
   following   Follow[]     @relation("Follower")
   collections Collection[]
 
+  totalLikedReceived Int @default(0)
+
   // Comment     Comment[]
   // CommentVote CommentVote[]
 }

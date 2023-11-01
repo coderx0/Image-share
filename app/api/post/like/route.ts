@@ -43,6 +43,18 @@ export async function POST(req: Request) {
             postId
           }
         })
+
+        await db.user.update({
+          where:{
+            id: post.authorId
+          },
+          data:{
+            totalLikedReceived: {
+              increment: 1
+            }
+          }
+        })
+
         return new Response('OK')
       }
     }
@@ -53,6 +65,16 @@ export async function POST(req: Request) {
             userId_postId :{
               userId: session.user.id,
               postId
+            }
+          }
+        })
+        await db.user.update({
+          where:{
+            id: post.authorId
+          },
+          data:{
+            totalLikedReceived: {
+              decrement: 1
             }
           }
         })

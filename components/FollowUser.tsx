@@ -37,12 +37,13 @@ const FollowUser = ({userId, style}: Props) => {
   
   const {data,isLoading,refetch} = useQuery(['user_following'],fetchUserFollowing)
 
+
     useEffect(()=>{
-      if(session?.user.id && data){
-        const isFollowed = !!data.find((follower:any)=>(follower.followerId === session.user.id));
+      if(data){
+        const isFollowed = !!data.find((follower:any)=>(follower.followingId === userId));
         setFollowed(isFollowed)
       }
-    },[data,session?.user.id])
+    },[data])
 
     const { mutate: followUser } = useMutation({
         mutationFn: async ({
