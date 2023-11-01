@@ -1,5 +1,6 @@
 import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
+import { redis } from '@/lib/redis'
 import { PostLikeValidator } from '@/lib/validators/like'
 import { z } from 'zod'
 
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
           }
         })
 
-        await db.user.update({
+        const resp = await db.user.update({
           where:{
             id: post.authorId
           },
@@ -54,6 +55,8 @@ export async function POST(req: Request) {
             }
           }
         })
+
+        await redis.zadd('leaderboard',{score: resp.totalLikedReceived,member:resp.id});
 
         return new Response('OK')
       }
@@ -68,7 +71,7 @@ export async function POST(req: Request) {
             }
           }
         })
-        await db.user.update({
+        const resp = await db.user.update({
           where:{
             id: post.authorId
           },
@@ -78,6 +81,9 @@ export async function POST(req: Request) {
             }
           }
         })
+
+        await redis.zadd('leaderboard',{score: resp.totalLikedReceived,member:resp.id});
+
         return new Response('OK')
       }
       else{

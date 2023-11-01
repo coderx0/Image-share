@@ -1,10 +1,15 @@
 import FeedContentSelector from '@/components/FeedContentSelector'
 import FollowUser from '@/components/FollowUser'
+import { getAuthSession } from '@/lib/auth'
 import { db } from '@/lib/db'
+import { redis } from '@/lib/redis'
 import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL'
 import { Post } from '@prisma/client'
 import Link from 'next/link'
-import React, { use } from 'react'
+import React from 'react'
+
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
 
 interface TopUser {
   id: string,
@@ -18,8 +23,15 @@ interface TopUser {
 }
 
 const LeaderBoardPage = async()=> {
+  const session = await getAuthSession();
+
+  const ranks: string[] = await redis.zrange('leaderboard',0,2,{rev: true});
+
   const topUsers = await db.user.findMany({
     where:{
+      id:{
+        in: ranks
+      },
     Post:{
         some: {}
       }
@@ -38,11 +50,15 @@ const LeaderBoardPage = async()=> {
         }
       }
     },
-    orderBy:{
-      totalLikedReceived: 'desc'
-    },
   });
 
+
+  topUsers.sort((a,b)=>{
+    const indexOfA = ranks.indexOf(a.id);
+    const indexOfB = ranks.indexOf(b.id);
+    return indexOfA - indexOfB;
+  })
+  
   return (
     <>
       <FeedContentSelector/>
@@ -64,7 +80,16 @@ const LeaderBoardPage = async()=> {
                       <Link href={`/user/${user.id}`}>
                         <h4 className='text-md md:text-xl'>{user.username}</h4>
                       </Link>
-                      <FollowUser userId={user.id} style='btn-sm '/>
+                      {
+                        session ?
+                        (
+                          <FollowUser userId={user.id} style='btn-sm '/>
+                        )
+                        :
+                        (
+                          <Link href='/sign-in' className='btn btn-sm'>Follow</Link>
+                        )
+                      }
                     </div>
                       <p className='text-sm md:mt-2 text-base-content/60'>{user.totalLikedReceived} Likes</p>
                   </div>

@@ -4,6 +4,7 @@ import { UserIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import React from 'react'
 import FollowUser from '../FollowUser'
+import Link from 'next/link'
 
 const PostAuthor = ({author}: {author: User}) => {
     const {data: session} = useSession();
@@ -31,9 +32,9 @@ const PostAuthor = ({author}: {author: User}) => {
                         )
                         :
                         (
-                            <button className='btn btn-ghost btn-sm p-2 text-base-content/60 font-normal hover:text-dark'>
+                            <Link href='/sign-in' className='btn btn-ghost btn-sm p-2 text-base-content/60 font-normal hover:text-dark'>
                                 Follow
-                            </button>
+                            </Link>
                         )
                     }
                 </div>

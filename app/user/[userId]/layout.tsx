@@ -62,6 +62,23 @@ const layout = async ({children,params}:Props) => {
             </h4>
 
             {
+                !session ? (
+                    <Link href='/sign-in' className='btn '>Follow</Link>
+                ):
+                (
+                    session.user.email === userDetails.email ?
+                    (
+                        <Link href={`/user/edit-profile/${userDetails.id}`} className='btn btn-success rounded-full'>
+                            Edit Profile
+                        </Link>
+                    )
+                    :
+                    (
+                    <FollowUser userId={userDetails.id} style=''/>
+                    )
+                )
+            }
+            {/* {
                 (session && session.user.email === userDetails.email) ?
                 (
                     <Link href={`/user/edit-profile/${userDetails.id}`} className='btn btn-success rounded-md'>
@@ -72,7 +89,7 @@ const layout = async ({children,params}:Props) => {
                 (
                     <FollowUser userId={userDetails.id} style=''/>
                 )
-            }
+            } */}
             <div className='flex gap-4 items-center'>
                 <div className='p-4 flex flex-col justify-center items-center px-8'>
                     <span className='font-semibold text-base-content/60'>Total Posts</span>

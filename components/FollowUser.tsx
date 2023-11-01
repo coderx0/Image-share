@@ -30,7 +30,7 @@ const FollowUser = ({userId, style}: Props) => {
           return response.data.userFollowings;
       }
       catch(err){
-          toast.error("Unable to fetch Likes")
+          toast.error("Unable to fetch follower")
       }
   },[session?.user.id]);
 
