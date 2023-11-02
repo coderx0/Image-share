@@ -20,7 +20,7 @@ const Searchbar = () => {
             ref={inputRef}
             type="text"
             placeholder="Search Images" 
-            className="input w-full bg-base-100 rounded-r-none rounded-l-md max-w-lg border-none outline-none text-sm h-full text-base-content" 
+            className="input w-full bg-base-100 rounded-r-none rounded-l-md max-w-lg border-none outline-none text-sm h-full text-base-content lg:ml-24" 
         />
         <button className='btn bg-base-100 rounded-l-none rounded-r-md min-h-[40px] max-h-[60px] h-full' type='submit'>
             <Search className='h-4 w-4'/>

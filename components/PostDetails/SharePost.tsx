@@ -31,7 +31,7 @@ const copyToClipboard = (text:string)=>{
     navigator.clipboard.writeText(text);
 }
 
-const SharePost = ({imageId}:{imageId: string}) => {
+const SharePost = ({imageId,style}:{imageId: string,style:string}) => {
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const postUrl = `${process.env.NEXT_PUBLIC_CLIENT_URL}/photo/${imageId}`;
     const [isCopied,setIsCopied] = useState(false);
@@ -50,7 +50,7 @@ const SharePost = ({imageId}:{imageId: string}) => {
 
     return (
     <>
-        <button onClick={onOpen} className='btn rounded-md rounded-l-none md:rounded-none p-3 hover:bg-primary hover:text-primary-800'>
+        <button onClick={onOpen} className={`btn p-3 hover:bg-primary hover:text-primary-800 ${style}`}>
             <Share2/>
         </button>
 

@@ -11,14 +11,15 @@ import { PostLikeRequest } from '@/lib/validators/like'
 
 interface Props{
     postId: string,
-    style: string
+    style: string,
+    showText?: boolean
 }
 
 type LikeType = {
     likeType: 'LIKE' | 'UNLIKE',
 }
 
-const PostLike = ({postId,style}: Props) => {
+const PostLike = ({postId,style,showText=false}: Props) => {
     const {data: session} = useSession();
     const [liked, setLiked] = useState<boolean>(false);
     const router = useRouter();
@@ -89,6 +90,13 @@ const PostLike = ({postId,style}: Props) => {
     <button className={`bg-base-200 flex justify-center items-center rounded-md hover:bg-primary hover:text-primary-800 ${style}`} onClick={likeHandler}>
         {
             liked? <Heart fill='pink' stroke='pink'/>:<Heart/>
+        }
+        {
+          showText? <span>
+            {
+              liked? 'Unlike':'Like'
+            }
+          </span>:null
         }
     </button>
   )

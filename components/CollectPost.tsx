@@ -25,7 +25,7 @@ interface Collection {
     posts: Post[]
 }
 
-const CollectPost = ({postId,style}: {postId: string,style:string}) => {
+const CollectPost = ({postId,style, showText=false}: {postId: string,style:string,showText?: boolean}) => {
 
     const {data: session} = useSession();
     const {isOpen, onOpen, onOpenChange} = useDisclosure();
@@ -86,13 +86,15 @@ const CollectPost = ({postId,style}: {postId: string,style:string}) => {
 
   return (
     <>
-        <button className={`bg-base-200 flex justify-center items-center rounded-md hover:bg-primary hover:text-primary-800 ${style}`}
+        <button className={`bg-base-200 flex justify-center items-center  hover:bg-primary hover:text-primary-800 ${style}`}
         onClick={onOpen}
         >
             <Bookmark className=''/>
-            {/* <span className='hidden md:block'>
-                Collect
-            </span> */}
+            {
+              showText ? <span className=''>
+              Collect
+          </span>:null
+            }
         </button>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange} className='bg-base-100 text-base-content'>
         <ModalContent>

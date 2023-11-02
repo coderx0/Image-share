@@ -59,7 +59,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
         }
         {
           session? (
-            <CollectPost postId={id} style='h-10 w-10'/>
+            <CollectPost postId={id} style='h-10 w-10 rounded-md'/>
           )
           :
           (

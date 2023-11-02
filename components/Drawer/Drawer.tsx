@@ -14,10 +14,10 @@ const Drawer = ({children}: {children: React.ReactNode}) => {
   return (
     <div className="drawer drawer-end">
   <input id="my-drawer-3" type="checkbox" className="drawer-toggle" checked={isChechked} onChange={e=>{}}/> 
-  <div className="drawer-content flex flex-col">
+  <div className="drawer-content flex flex-col items-center">
     {/* Navbar */}
     
-    <div className="flex justify-between w-full navbar gap-2 bg-base-300 fixed z-20">
+    <div className="flex justify-between w-full navbar gap-2 bg-base-300 fixed z-20 max-w-[1600px]">
       <div className="md:px-2 md:mx-2">
         <Link href='/' className='font-semibold text-md md:text-xl text-base-content'>
             ImageDash
@@ -49,11 +49,11 @@ const Drawer = ({children}: {children: React.ReactNode}) => {
       </div> 
     </div>
     {/* Page content here */}
-    <main className='mt-16 z-10 bg-base-100 text-base-content'>
+    <main className='mt-16 z-10 bg-base-100 text-base-content w-full max-w-[1600px]'>
         {children}
     </main>
   </div> 
-  <div className="drawer-side z-20">
+  <div className="drawer-side z-20 lg:hidden">
     <label htmlFor="my-drawer-3" aria-label="close sidebar" className="drawer-overlay" onClick={()=>setIsChecked(false)}></label> 
     <ul className="menu p-4 w-44 min-h-full bg-base-200 pt-16 flex flex-col gap-4 ">
       {/* Sidebar content here */}
