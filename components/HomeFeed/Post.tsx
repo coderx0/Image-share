@@ -73,7 +73,7 @@ const Post = ({title, imageUrl,id,author}: Props) => {
         <Link href={`/user/${author.id}`}>
           <div className='flex items-center gap-2 text-white'>
             <Avatar showFallback name={author.name!} src={transformCloudinaryURL(author.image || '') || ''}/>
-            <span className=''>
+            <span className='w-[150px] overflow-hidden whitespace-nowrap text-ellipsis'>
               {author.name}
             </span>
           </div>
