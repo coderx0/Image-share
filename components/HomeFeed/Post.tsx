@@ -1,5 +1,5 @@
 import React from 'react'
-import {Avatar, Image} from "@nextui-org/react";
+import {Avatar} from "@nextui-org/react";
 import { Bookmark, Download, Heart } from 'lucide-react';
 import Link from 'next/link';
 import {  User } from '@prisma/client';
@@ -86,10 +86,10 @@ const Post = ({title, imageUrl,id,author}: Props) => {
       </div>
     <Link href={`/photo/${id}`} prefetch={true}>
       <div className='max-w-[500px]'>
-          <Image
+          <img
             alt={title}
             src={imgURL}
-            className='z-1'
+            className='z-1 rounded-xl'
           />
       </div>
     </Link>
