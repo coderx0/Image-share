@@ -70,14 +70,14 @@ const LeaderBoardPage = async()=> {
               <div key={user.id} className='mb-10'>
                 <div className='flex items-center gap-4'>
                   <h3 className='text-lg md:text-2xl'>{idx+1}</h3>
-                  <Link href={`/user/${user.id}`}>
+                  <Link href={`/user/${user.id}`} prefetch>
                   <div className='w-16 h-16 md:w-24 md:h-24'>
                       <img src={transformCloudinaryURL(user.image || '') || ''} alt='' className='h-full w-full rounded-full object-cover'/>
                   </div>
                   </Link>
                   <div className=''>
                     <div className='flex gap-4'>
-                      <Link href={`/user/${user.id}`}>
+                      <Link href={`/user/${user.id}`} prefetch>
                         <h4 className='text-md md:text-xl'>{user.username}</h4>
                       </Link>
                       {
@@ -106,7 +106,7 @@ const LeaderBoardPage = async()=> {
                         src={transformCloudinaryURL(post.imageUrl) || ''} alt=''/>
                     ))
                   }
-                  <Link href={`/user/${user.id}`}>
+                  <Link href={`/user/${user.id}`} prefetch>
                   <div className='w-[300px] btn h-full rounded-md flex-col normal-case gap-4 overflow-hidden group'>
                     <p className='text-3xl group-hover:scale-150 transition-transform duration-150'>
                       {user._count.Post}
