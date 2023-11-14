@@ -10,7 +10,8 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL';
-import { User } from 'lucide-react';
+import { ArrowLeft, User } from 'lucide-react';
+import Link from 'next/link';
 
 type FormData = z.infer<typeof ProfileDetailsValidator>
 
@@ -149,7 +150,15 @@ const EditProfile = ({userId,userName,bio}:Props) => {
         <h3 className='text-3xl font-semibold mt-6'>
             Profile Settings 
         </h3>
-        <div className='flex items-center gap-4 mt-8 bg-base-200 p-4 rounded-xl w-full md:w-[80%] max-w-[800px]'>
+        <div className='w-full md:w-[80%] max-w-[800px] mt-6 mb-2'>
+        <Link href={`/user/${userId}`} className='btn rounded-md'>
+          <ArrowLeft className='h-6 w-6'/>
+          <span>
+          Go back
+          </span>
+        </Link>
+        </div>
+        <div className='flex items-center gap-4 bg-base-200 p-4 rounded-xl w-full md:w-[80%] max-w-[800px]'>
             <div className='h-24 w-24 flex justify-center items-center'>
               {
                 authorImage ? 
@@ -163,12 +172,12 @@ const EditProfile = ({userId,userName,bio}:Props) => {
             </div>
             {
                 isLoading ? (
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary btn-sm md:btn-md">
                     <span className="loading loading-spinner"></span>
                     Updating
                     </button>
                 ):(
-                    <label className='btn btn-primary'>
+                    <label className='btn btn-primary btn-sm md:btn-md'>
               <span>Change Image</span>
               <input
               type="file"

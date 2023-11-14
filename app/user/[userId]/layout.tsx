@@ -68,7 +68,7 @@ const layout = async ({children,params}:Props) => {
                 (
                     session.user.email === userDetails.email ?
                     (
-                        <Link href={`/user/edit-profile/${userDetails.id}`} className='btn btn-success rounded-full'>
+                        <Link href={`/user/edit-profile/${userDetails.id}`} className='btn btn-success rounded-full' prefetch>
                             Edit Profile
                         </Link>
                     )
@@ -78,18 +78,6 @@ const layout = async ({children,params}:Props) => {
                     )
                 )
             }
-            {/* {
-                (session && session.user.email === userDetails.email) ?
-                (
-                    <Link href={`/user/edit-profile/${userDetails.id}`} className='btn btn-success rounded-md'>
-                        Edit Profile
-                    </Link>
-                )
-                :
-                (
-                    <FollowUser userId={userDetails.id} style=''/>
-                )
-            } */}
             <div className='flex gap-4 items-center'>
                 <div className='p-4 flex flex-col justify-center items-center px-8'>
                     <span className='font-semibold text-base-content/60'>Total Posts</span>

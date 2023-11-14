@@ -33,7 +33,7 @@ const UserCollectionsPage = async({params} :{
     )
   }
   return (
-    <div className='p-8 w-full flex flex-row flex-wrap gap-8 justify-center'>
+    <div className='p-8 w-full flex flex-row flex-wrap gap-10 justify-center'>
       {
         collections.map(collection=>{
           return (

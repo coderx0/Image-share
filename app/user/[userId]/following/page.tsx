@@ -15,7 +15,7 @@ const UserFollowingPage = async({params}:{params:{
   })
 
   return (
-    <div className='p-8 flex flex-wrap gap-4'>
+    <div className='p-8 flex flex-wrap gap-4 justify-center'>
       {
         followers.length === 0 ?
         (
