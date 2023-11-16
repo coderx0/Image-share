@@ -9,6 +9,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import Post from './Post'
 import Masonry from 'react-masonry-css'
 import { INITIAL_POST_NUMBER } from '@/lib/constants'
+import FeedLayout from './FeedLayout'
 
 interface PostFeedProps {
   initialPosts: ExtendedPost[],
@@ -63,7 +64,8 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
 
   return (
     <>
-    <Masonry
+    <FeedLayout posts={posts} lastPostref = {ref}/>
+    {/* <Masonry
       breakpointCols={breakpointColumnsObj}
       className="my-masonry-grid"
       columnClassName="my-masonry-grid_column">
@@ -94,7 +96,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
           }
         })
         }
-    </Masonry>
+    </Masonry> */}
       {isFetchingNextPage && (
         <li className='flex justify-center'>
           <Loader2 className='w-6 h-6 text-zinc-500 animate-spin' />

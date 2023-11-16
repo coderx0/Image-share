@@ -12,13 +12,15 @@ interface Props{
         imageUrl: string,
         id: string,
         author: User,
-        likes: Like[]
+        likes: Like[],
+        tags: {name: string}[]
     }
 }
 
 const PageModal = ({post}: Props) => {
 
   const router = useRouter();
+  const tags = post.tags.map(tag=>tag.name)
 
   return (
     <>
@@ -46,6 +48,7 @@ const PageModal = ({post}: Props) => {
           imageId={post.id}
           imageUrl={post.imageUrl}
           author={post.author}
+          tags={tags}
           />
       </div>
       </div>

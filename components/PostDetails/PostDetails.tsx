@@ -11,16 +11,18 @@ import Link from 'next/link'
 import FileSaver from "file-saver"
 import SharePost from './SharePost'
 import { transformCloudinaryURL } from '@/lib/transformCloudinaryURL'
+import RelatedPosts from './RelatedPosts'
 interface Props {
     title: string,
     imageUrl: string,
     imageId: string,
     author: User,
-    postId: string
+    postId: string,
+    tags: string[]
 }
 
 const PostDetails = ({
-    title, imageUrl, imageId, author,postId
+    title, imageUrl, imageId, author,postId,tags
 }: Props) => {
     const {data: session} = useSession()
     const [isHQ,setIsHQ] =  useState(false);
@@ -112,8 +114,8 @@ const PostDetails = ({
                     </span>
                 </button>
                 </div>
-                {/* <PostAuthor author={author}/> */}
         </div>
+        <RelatedPosts title={title} id={imageId}/>
     </div>
     </>
   )

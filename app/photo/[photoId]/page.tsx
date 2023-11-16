@@ -22,12 +22,19 @@ const Page = async ({params}:Props) => {
     },
     include: {
       author: true,
+      tags: {
+        select: {
+          name: true
+        }
+      }
     }
   });
 
   if(!post){
     return notFound();
   }
+
+  const tags = post.tags.map(tag=>tag.name);
 
   return (
       <PostDetails 
@@ -36,6 +43,7 @@ const Page = async ({params}:Props) => {
         imageId={post.id}
         imageUrl={post.imageUrl}
         author={post.author}
+        tags={tags}
       />
   )
 }
