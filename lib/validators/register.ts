@@ -20,3 +20,15 @@ export const RegisterValidator = z.object({
 });
 
 export type RegisterRequest = z.infer<typeof RegisterValidator>;
+
+
+export const LoginValidator = z.object({
+  email: z.string().refine((email) => emailRegex.test(email), {
+    message: 'Invalid email format',
+  }),
+  password: z.string().min(passwordMinLength, {
+    message: `Password must be at least ${passwordMinLength} characters`,
+  }),
+});
+
+export type LoginRequest = z.infer<typeof LoginValidator>;

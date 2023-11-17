@@ -44,13 +44,13 @@ export const authOptions: NextAuthOptions = {
         });
 
         if(!user){
-          return new Response('User with provided email does not exists. Sign up instead.',{status:401})
+          throw new Error("Invalid Email address. Please try again!")
         }
         
         const isValidPassword = await verifyPassword({password: credentials!.password,hashedPassword:user.password});
 
         if(!isValidPassword){
-          return new Response('Wrong password. Please try again.',{status:401})
+          throw new Error("Invalid Password. Please try again!")
         }
 
         return user;
@@ -101,9 +101,9 @@ export const authOptions: NextAuthOptions = {
         username: dbUser.username,
       }
     },
-    redirect() {
-      return '/'
-    },
+    // redirect() {
+    //   return '/'
+    // },
   },
 }
 
