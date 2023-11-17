@@ -62,7 +62,7 @@ const LeaderBoardPage = async()=> {
   return (
     <>
       <FeedContentSelector/>
-      <div className='p-4 md:px-12 flex flex-col items-center mt-4 md:mt-10 '>
+      <div className='p-4 md:px-14 flex flex-col items-center mt-4 md:mt-10 '>
         <h1 className='text-center md:text-2xl'>Users with most number of likes received on their posts.</h1>
         <div className='w-full mt-10'>
           {
@@ -107,7 +107,7 @@ const LeaderBoardPage = async()=> {
                     ))
                   }
                   <Link href={`/user/${user.id}`} prefetch>
-                  <div className='w-[300px] btn h-full rounded-md flex-col normal-case gap-4 overflow-hidden group'>
+                  <div className='w-[200px] md:w-[300px] btn h-full rounded-md flex-col normal-case gap-4 overflow-hidden group'>
                     <p className='text-3xl group-hover:scale-150 transition-transform duration-150'>
                       {user._count.Post}
                     </p>

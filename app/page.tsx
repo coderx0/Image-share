@@ -14,8 +14,10 @@ export default async function Home() {
           </h1>
         </div>
       </div>
-      <FeedContentSelector/>
-      <HomeFeed/>
+        <FeedContentSelector/>
+      <div className='md:px-10'>
+        <HomeFeed/>
+      </div>
     </div>
   )
 }

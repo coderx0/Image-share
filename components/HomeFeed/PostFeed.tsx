@@ -65,38 +65,6 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts,endpoint,shouldFetchNext }) 
   return (
     <>
     <FeedLayout posts={posts} lastPostref = {ref}/>
-    {/* <Masonry
-      breakpointCols={breakpointColumnsObj}
-      className="my-masonry-grid"
-      columnClassName="my-masonry-grid_column">
-          {
-        posts.map((post,index)=>{
-          if(index === posts.length - 1){
-            return (
-              <div key={post.id} ref={ref}>
-                <Post 
-                  id={post.id} 
-                  title={post.title} 
-                  imageUrl={post.imageUrl} 
-                  author={post.author}/>
-              </div>
-            )
-          }
-          else{
-            return (
-              <div key={post.id}>
-                <Post 
-                  id={post.id} 
-                  title={post.title} 
-                  imageUrl={post.imageUrl} 
-                  author={post.author}
-                  />
-              </div>
-            )
-          }
-        })
-        }
-    </Masonry> */}
       {isFetchingNextPage && (
         <li className='flex justify-center'>
           <Loader2 className='w-6 h-6 text-zinc-500 animate-spin' />

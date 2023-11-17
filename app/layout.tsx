@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { Inter } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 
 
 import './globals.css'
@@ -7,7 +7,7 @@ import Providers from '@/components/Providers/Provider'
 import Drawer from '@/components/Drawer/Drawer'
 import { Toaster } from 'sonner';
 
-const inter = Inter({ subsets: ['latin'] })
+const font = Open_Sans({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'ImageDash',
@@ -25,11 +25,11 @@ export default function RootLayout({
       lang='en'
       className={cn(
         'antialiased ',
-        inter.className
+        font.className
       )}
       data-theme="forest"
       >
-      <body className='min-h-screen antialiased bg-base-100'>
+      <body className='min-h-screen antialiased bg-base-100 tracking-wide'>
         <Providers>
           <Drawer>
             {children}

@@ -51,10 +51,12 @@ const page = async ({params}: Props) => {
 
   return (
     <div className=''>
-      <h3 className='px-4 py-4 md:text-xl lg:text-3xl font-semibold'>
+      <h3 className='px-6 md:px-14 py-4 md:text-xl lg:text-2xl mt-4 text-center md:text-left md:mt-8 font-semibold'>
         Beautiful {params.searchParam} photos 
       </h3>
-    <PostFeed initialPosts={postsOfTag.posts.reverse()} endpoint={`/search/${params.searchParam}`} shouldFetchNext={postsOfTag.posts.length === INITIAL_POST_NUMBER}/>
+      <div className='md:px-10'>
+        <PostFeed initialPosts={postsOfTag.posts.reverse()} endpoint={`/search/${params.searchParam}`} shouldFetchNext={postsOfTag.posts.length === INITIAL_POST_NUMBER}/>
+      </div>
     </div>
     )
 }

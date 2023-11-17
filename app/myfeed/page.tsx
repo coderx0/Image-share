@@ -1,3 +1,4 @@
+import FeedContentSelector from '@/components/FeedContentSelector'
 import PostFeed from '@/components/HomeFeed/PostFeed'
 import { getAuthSession } from '@/lib/auth'
 import { INITIAL_POST_NUMBER } from '@/lib/constants'
@@ -57,8 +58,15 @@ const page = async () => {
   }
 
   return (
-    <PostFeed initialPosts={posts.reverse()} endpoint={`/customfeed`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
-  )
+<div>
+<FeedContentSelector/>
+<h3 className='text-center text-lg md:text-2xl mt-8'>Your Feed</h3>
+<p className='text-center mt-2 mb-8 text-[10px] md:text-[12px] lg:text-sm'>Posts uploaded by the users you follow will appear here</p>
+<div className='md:px-10'>
+<PostFeed initialPosts={posts.reverse()} endpoint={`/customfeed`} shouldFetchNext={posts.length === INITIAL_POST_NUMBER}/>
+</div>
+</div> 
+)
 }
 
 export default page

@@ -30,7 +30,7 @@ const PostDetails = ({
 
   return (
     <>
-        <div className='p-4 md:p-6 '>
+        <div className='p-4 md:p-6 md:px-10 '>
         <div className='flex'>
             <div className='flex flex-1 gap-2 items-start'>
                 <PostAuthor author={author}/>
@@ -115,7 +115,7 @@ const PostDetails = ({
                 </button>
                 </div>
         </div>
-        <RelatedPosts title={title} id={imageId}/>
+        <RelatedPosts title={title} id={imageId} tags={tags}/>
     </div>
     </>
   )
