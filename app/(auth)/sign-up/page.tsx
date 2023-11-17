@@ -3,7 +3,6 @@
 import UserAuthForm from '@/components/UserAuthForm'
 import { RegisterRequest, RegisterValidator } from '@/lib/validators/register'
 import { hashPassword } from '@/utils/password'
-// import { hashPassword } from '@/utils/password'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import axios from 'axios'
@@ -32,7 +31,7 @@ const page: FC<pageProps> = ({}) => {
     },
   })
 
-  const { mutate: createAccount } = useMutation({
+  const { mutate: createAccount,isLoading } = useMutation({
     mutationFn: async ({
       email,
       password,
@@ -42,11 +41,11 @@ const page: FC<pageProps> = ({}) => {
       const  {data}  = await axios.post('/api/auth/signup', payload)
       return data
     },
-    onError: (error) => {
+    onError: (error: any) => {
       // @ts-ignore
       console.log({error: error.response.data})
       return toast.error('Something Went Wrong',{
-        description: 'Could not create an account. Please try again.',
+        description: error.response.data,
         duration: 4000
       })
     },
@@ -79,6 +78,21 @@ const page: FC<pageProps> = ({}) => {
     createAccount(payload);
   }
 
+  if(errors){
+    if(errors.email){
+      toast.error('Error',{
+        description: errors.email.message,
+        duration: 4000
+      })
+    }
+    if(errors.password){
+      toast.error('Error',{
+        description: errors.password.message,
+        duration: 4000
+      })
+    }
+  }
+
   return (
 <section className="grid h-auto md:h-screen grid-cols-1 md:grid-cols-2 gap-0 bg-base-100">
   <div className="flex-col flex items-center justify-center bg-slate-800 text-base-content w-full">
@@ -95,7 +109,7 @@ const page: FC<pageProps> = ({}) => {
               autoFocus
               {...register('email')}
                 type="email" 
-                className="m-0 mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14" 
+                className={`m-0 mb-4 block w-full border border-solid border-black align-middle focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14 ${(errors && errors.email) ? 'bg-red-100 text-red-700':'bg-white text-black'}`} 
                 maxLength={256} 
                 placeholder="Email Address"
               />
@@ -110,7 +124,7 @@ const page: FC<pageProps> = ({}) => {
               <input 
               {...register('password')}
               type="password" 
-              className="m-0 mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14" 
+              className={`m-0 mb-4 block w-full border border-solid border-black align-middle focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14 ${(errors && errors.password) ? 'bg-red-100 text-red-700':'bg-white text-black'}`} 
               maxLength={20}
               minLength={8} 
               placeholder="Password (min 8 characters)"/>
@@ -124,7 +138,7 @@ const page: FC<pageProps> = ({}) => {
               <input 
               {...register('username')}
               type="text" 
-              className="m-0 mb-4 block w-full border border-solid border-black bg-white align-middle text-[#333333] focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14" 
+              className={`m-0 mb-4 block w-full border border-solid border-black align-middle focus:border-[#3898ec] text-sm px-3 rounded-md h-9 py-6 pl-14 ${(errors && errors.username) ? 'bg-red-100 text-red-700':'bg-white text-black'}`} 
               minLength={3} 
               maxLength={20} 
               placeholder="Username (min 3 characters)"/>
@@ -133,8 +147,8 @@ const page: FC<pageProps> = ({}) => {
               <div>
               </div>
             </div>
-            <button type="submit" className="m-0 inline-block w-full cursor-pointer items-center bg-black px-6 py-3 text-center font-semibold text-white">
-              Register
+            <button disabled={isLoading} type="submit" className={`btn w-full rounded-md text-white tracking-wider ${isLoading && 'btn-disabled'}`}>
+              {isLoading ? <span className="loading loading-spinner"></span>:'Register'}
             </button>
           </form>
           <div className='divider'>
